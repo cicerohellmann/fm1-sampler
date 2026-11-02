@@ -12,4 +12,5 @@ class Session;
 @property (atomic, readonly) BOOL micRunning;
 @property (atomic, readonly) double hardwareRate;
 @property (nonatomic, readonly) uint64_t callbacks;   // render callbacks so far (diagnostics)
+@property (nonatomic, readonly) NSString* inputStats;   // microphone FIFO: failed pulls, underruns, overruns (diagnostics)
 @end

@@ -158,6 +158,7 @@ std::vector<Action> parseScript(const char* s) {
                 fm1log("%s | audio %.0f cb/s hw %.0f Hz mic %d usb %d | midi %d%s %s | %s", core->diagLine().c_str(),
                        (cb - lastCb) * 1000.0 / std::max<uint32_t>(1, now - lastDiag), _audio.hardwareRate, _audio.micRunning, _audio.usbOutput,
                        _midi.connected, _midi.bluetooth ? " ble" : "", (_midi.deviceName ?: @"-").UTF8String, _bridge->status().c_str());
+                fm1log("mic: %s", _audio.inputStats.UTF8String);
                 lastDiag = now; lastCb = cb;
             }
             if (_toggleRemote.exchange(false)) {

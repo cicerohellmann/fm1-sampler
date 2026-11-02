@@ -12,14 +12,43 @@ static const double kRate = 44100;
 static const UInt32 kMaxFrames = 4096;
 
 namespace {
-// Everything the render callback touches: plain data, no Objective-C on the audio thread.
+// The microphone reaches the engine through a FIFO. When the hardware runs at another rate than the engine (the built-in route is
+// 48 kHz, the engine 44.1 kHz) iOS converts the input in chunks of its own: pulling exactly the output's frame count from inside the
+// output callback then fails every few callbacks, and those callbacks were silence (5 ms dropouts, the crackle of mic takes). So the
+// input has its own callback that takes what iOS delivers, and the output reads it behind a small cushion.
+constexpr uint32_t kFifo = 16384;            // power of two
+constexpr uint32_t kCushion = 512;           // ~12 ms at 44.1 kHz: covers the converter's uneven chunks
+constexpr uint32_t kMaxLag = kCushion + 2048;   // more than this waiting (the output stalled): drop the oldest, keep the latency low
+
+// Everything the callbacks touch: plain data, no Objective-C on the audio thread.
 struct RenderCtx {
     Session* session = nullptr;
     AudioUnit unit = nullptr;
     std::atomic<bool> input{false};
     std::atomic<uint64_t> callbacks{0};
-    std::vector<float> inMono = std::vector<float>(kMaxFrames), inStereo = std::vector<float>(kMaxFrames * 2);
+    std::atomic<uint32_t> inErrors{0}, underruns{0}, overruns{0};
+    std::vector<float> fifo = std::vector<float>(kFifo), scratch = std::vector<float>(kMaxFrames), inStereo = std::vector<float>(kMaxFrames * 2);
+    std::atomic<uint32_t> wr{0}, rd{0};
+    bool primed = false;                     // output side only
 };
+
+// input bus: iOS says how much converted microphone audio is ready; take all of it into the FIFO
+OSStatus inputReady(void* ref, AudioUnitRenderActionFlags* flags, const AudioTimeStamp* ts, UInt32 bus, UInt32 frames, AudioBufferList*) {
+    RenderCtx& c = *static_cast<RenderCtx*>(ref);
+    if (!c.input.load(std::memory_order_relaxed) || frames == 0 || frames > kMaxFrames) return noErr;
+    AudioBufferList abl;
+    abl.mNumberBuffers = 1;
+    abl.mBuffers[0].mNumberChannels = 1;
+    abl.mBuffers[0].mDataByteSize = frames * sizeof(float);
+    abl.mBuffers[0].mData = c.scratch.data();
+    AudioUnitRenderActionFlags f = 0;
+    if (AudioUnitRender(c.unit, &f, ts, 1, frames, &abl) != noErr) { c.inErrors.fetch_add(1, std::memory_order_relaxed); return noErr; }
+    const uint32_t got = abl.mBuffers[0].mDataByteSize / sizeof(float);
+    uint32_t w = c.wr.load(std::memory_order_relaxed);
+    for (uint32_t i = 0; i < got && i < frames; i++) c.fifo[w++ & (kFifo - 1)] = c.scratch[i];
+    c.wr.store(w, std::memory_order_release);
+    return noErr;
+}
 
 OSStatus render(void* ref, AudioUnitRenderActionFlags* flags, const AudioTimeStamp* ts, UInt32 bus, UInt32 frames, AudioBufferList* io) {
     Denormals::enableOnThisThread();
@@ -28,14 +57,16 @@ OSStatus render(void* ref, AudioUnitRenderActionFlags* flags, const AudioTimeSta
     if (frames > kMaxFrames || !out) { for (UInt32 b = 0; b < io->mNumberBuffers; b++) memset(io->mBuffers[b].mData, 0, io->mBuffers[b].mDataByteSize); return noErr; }
     const float* in = nullptr;
     if (c.input.load(std::memory_order_relaxed)) {
-        AudioBufferList abl;
-        abl.mNumberBuffers = 1;
-        abl.mBuffers[0].mNumberChannels = 1;
-        abl.mBuffers[0].mDataByteSize = frames * sizeof(float);
-        abl.mBuffers[0].mData = c.inMono.data();
-        AudioUnitRenderActionFlags f = 0;
-        const bool ok = AudioUnitRender(c.unit, &f, ts, 1, frames, &abl) == noErr;
-        for (UInt32 i = 0; i < frames; i++) { const float v = ok ? c.inMono[i] : 0.f; c.inStereo[2 * i] = v; c.inStereo[2 * i + 1] = v; }
+        const uint32_t w = c.wr.load(std::memory_order_acquire);
+        uint32_t r = c.rd.load(std::memory_order_relaxed), avail = w - r;
+        if (avail > kFifo) { r = w; avail = 0; }                                       // never happens, but never read garbage
+        if (avail > kMaxLag) { r += avail - kCushion; avail = kCushion; c.overruns.fetch_add(1, std::memory_order_relaxed); }
+        if (!c.primed && avail >= frames + kCushion) c.primed = true;                  // start (again) once the cushion is there
+        if (c.primed && avail < frames) { c.primed = false; c.underruns.fetch_add(1, std::memory_order_relaxed); }
+        if (c.primed) {
+            for (UInt32 i = 0; i < frames; i++) { const float v = c.fifo[r++ & (kFifo - 1)]; c.inStereo[2 * i] = v; c.inStereo[2 * i + 1] = v; }
+            c.rd.store(r, std::memory_order_relaxed);
+        } else std::fill(c.inStereo.begin(), c.inStereo.begin() + 2 * frames, 0.f);   // waiting for the cushion: silence, no torn audio
         in = c.inStereo.data();
     }
     c.session->process(out, in, (int)frames);
@@ -65,6 +96,9 @@ OSStatus render(void* ref, AudioUnitRenderActionFlags* flags, const AudioTimeSta
 
 - (void)start { dispatch_async(_q, ^{ [self startOnQueue]; }); }
 - (uint64_t)callbacks { return _ctx.callbacks.load(std::memory_order_relaxed); }
+- (NSString*)inputStats {
+    return [NSString stringWithFormat:@"in errors %u underruns %u overruns %u", _ctx.inErrors.load(), _ctx.underruns.load(), _ctx.overruns.load()];
+}
 
 - (void)startOnQueue {
     [self configureSession];
@@ -166,6 +200,11 @@ OSStatus render(void* ref, AudioUnitRenderActionFlags* flags, const AudioTimeSta
     AudioUnitSetProperty(u, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0, &maxFrames, sizeof maxFrames);
     AURenderCallbackStruct cb = {render, &_ctx};
     r |= AudioUnitSetProperty(u, kAudioUnitProperty_SetRenderCallback, kAudioUnitScope_Input, 0, &cb, sizeof cb);
+    if (withInput) {
+        AURenderCallbackStruct icb = {inputReady, &_ctx};
+        r |= AudioUnitSetProperty(u, kAudioOutputUnitProperty_SetInputCallback, kAudioUnitScope_Global, 1, &icb, sizeof icb);
+        _ctx.wr = 0; _ctx.rd = 0; _ctx.primed = false;
+    }
     if (r != noErr) { fm1log("unit setup failed (input %d): %d", withInput, (int)r); return NO; }
     _ctx.input = withInput;
     if ((r = AudioUnitInitialize(u)) != noErr) { fm1log("initialize failed (input %d): %d", withInput, (int)r); return NO; }
