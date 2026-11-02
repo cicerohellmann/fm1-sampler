@@ -16,6 +16,10 @@ public:
     void frame(uint32_t nowMs);
     void openProject(bool on) { projectOpen_ = on; }
     void setEditor(bool on) { editor_ = on; }   // false: the cassette deck, true: sample / page editor
+    // Rows a platform adds at the end of the PROJECT menu (iOS: the RemoteFM1 / Bluetooth options). Asked every frame the menu is
+    // open; a row's tap runs on the UI's thread, inside touch(): it must not call back into the app.
+    struct ExtraRow { std::string label, hint; bool enabled = true, hot = false; std::function<void()> tap; };
+    void setExtraRows(std::function<std::vector<ExtraRow>()> rows) { extraRows_ = std::move(rows); }
     const std::vector<UiOp>& ops() const { return ops_; }
     void touch(int action /*0 down 1 move 2 up*/, float x, float y, uint32_t nowMs);
 
@@ -65,6 +69,7 @@ private:
     float sheetScroll_ = 0, sheetLastY_ = 0, sheetMoved_ = 0;
     Rect sheetList_{0, 0, 0, 0};
     uint32_t clearArmed_ = 0;
+    std::function<std::vector<ExtraRow>()> extraRows_;
     float dragY_ = 0, dragV_ = 0;
     static constexpr int kHist = 118;   // the mixer picture: the last four seconds of the active channel (its level, the sidechain source, the gain it is pulled down to)
     float hOwn_[kHist] = {}, hSrc_[kHist] = {}, hGain_[kHist] = {}; int hPos_ = 0, hTrack_ = -1; uint32_t hAt_ = 0;

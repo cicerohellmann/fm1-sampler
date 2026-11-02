@@ -1,6 +1,7 @@
 // The one screen: full screen landscape SamplerView, the system file picker when the UI asks for a file (the counterpart of SamplerActivity).
 #import <UIKit/UIKit.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
+#import <CoreAudioKit/CoreAudioKit.h>
 #import "ViewController.h"
 #import "SamplerView.h"
 #import "Backend.h"
@@ -25,6 +26,7 @@
     Backend* b = Backend.shared;
     __weak ViewController* weak = self;
     b.onFileRequest = ^{ [weak pickFile]; };
+    b.onBluetoothRequest = ^{ [weak pairBluetooth]; };
     [b start];
     [_view startAnimating];
     // diagnostics: FM1_IMPORT=<a.m4a,b.aif,...> imports Documents/import/<file> one after the other, as if picked (tests the decoder on the phone)
@@ -51,6 +53,18 @@
     p.allowsMultipleSelection = NO;
     [self presentViewController:p animated:YES completion:nil];
 }
+
+// Apple's Bluetooth MIDI panel: it scans for Bluetooth MIDI devices (an FM-1 running RemoteFM1 advertises as "FM-1 XXXX") and
+// connects the one tapped; CoreMIDI then has it as a port, MidiLink takes it as the FM-1 and the RemoteFM1 bridge finds it by HELLO.
+- (void)pairBluetooth {
+    if (self.presentedViewController) return;
+    CABTMIDICentralViewController* c = [[CABTMIDICentralViewController alloc] init];
+    c.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(closePresented)];
+    UINavigationController* n = [[UINavigationController alloc] initWithRootViewController:c];
+    n.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:n animated:YES completion:nil];
+}
+- (void)closePresented { [self dismissViewControllerAnimated:YES completion:nil]; }
 
 - (void)documentPicker:(UIDocumentPickerViewController*)controller didPickDocumentsAtURLs:(NSArray<NSURL*>*)urls {
     if (urls.firstObject) [self importURL:urls.firstObject removeAfter:YES];

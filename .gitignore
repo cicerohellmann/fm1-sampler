@@ -19,3 +19,4 @@ android/**/.cxx/
 ios/build/
 ios/FM1Sampler.xcodeproj/xcuserdata/
 ios/FM1Sampler.xcodeproj/project.xcworkspace/xcuserdata/
+ios/tests/build/

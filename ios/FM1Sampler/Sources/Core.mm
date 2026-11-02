@@ -48,6 +48,7 @@ void Core::uiFrame(float w, float h, uint32_t now, std::vector<UiOp>& out) {
     out = ui_->ops();
 }
 void Core::uiTouch(int action, float x, float y, uint32_t now) { std::lock_guard<std::mutex> l(mtx_); ui_->touch(action, x, y, now); }
+void Core::setExtraRows(std::function<std::vector<SamplerUIExtraRow>()> rows) { std::lock_guard<std::mutex> l(mtx_); ui_->setExtraRows(std::move(rows)); }
 void Core::playNote(int note, bool down) { std::lock_guard<std::mutex> l(mtx_); app_->playNote(note, down); }
 std::string Core::diagLine() {
     std::lock_guard<std::mutex> l(mtx_);

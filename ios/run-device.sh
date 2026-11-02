@@ -10,7 +10,7 @@ DEVICE=${DEVICE:-$(xcrun devicectl list devices 2>/dev/null | awk '/iPhone/ && /
 echo "device: $(xcrun devicectl list devices 2>/dev/null | grep "$DEVICE" | sed -E 's/ {2,}/ | /g')"
 xcodegen -q
 xcodebuild -project FM1Sampler.xcodeproj -scheme FM1Sampler -configuration $CONF -destination "id=$DEVICE" -derivedDataPath build \
-  -allowProvisioningUpdates build 2>&1 | grep -E "^.*(error|warning): |BUILD (SUCCEEDED|FAILED)" | grep -v "/engine/" || true
+  -allowProvisioningUpdates build 2>&1 | grep -E "^[^ ].*(error|warning): |BUILD (SUCCEEDED|FAILED)" | grep -v "/engine/" || true
 APP=build/Build/Products/$CONF-iphoneos/FM1Sampler.app
 [ -d "$APP" ] || exit 1
 xcrun devicectl device install app --device $DEVICE "$APP" | grep -E "App installed|error" || true

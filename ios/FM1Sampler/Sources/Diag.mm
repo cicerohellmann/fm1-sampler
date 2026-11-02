@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <mutex>
 #include <os/log.h>
+#import <CoreMIDI/CoreMIDI.h>
 
 static NSDictionary<NSString*, NSString*>* switches() {
     static NSDictionary* d; static dispatch_once_t once;
@@ -21,6 +22,24 @@ static NSDictionary<NSString*, NSString*>* switches() {
     return d;
 }
 NSString* diagValue(NSString* key) { NSString* v = switches()[key]; return v.length ? v : nil; }
+
+static NSString* describe(MIDIEndpointRef e) {
+    CFStringRef s = nullptr; NSString* name = @"?", *owner = @"-", *dname = @"-";
+    if (MIDIObjectGetStringProperty(e, kMIDIPropertyDisplayName, &s) == noErr && s) name = (__bridge_transfer NSString*)s;
+    MIDIEntityRef ent = 0; MIDIDeviceRef dev = 0;
+    if (MIDIEndpointGetEntity(e, &ent) == noErr && ent && MIDIEntityGetDevice(ent, &dev) == noErr && dev) {
+        s = nullptr; if (MIDIObjectGetStringProperty(dev, kMIDIPropertyDriverOwner, &s) == noErr && s) owner = (__bridge_transfer NSString*)s;
+        s = nullptr; if (MIDIObjectGetStringProperty(dev, kMIDIPropertyName, &s) == noErr && s) dname = (__bridge_transfer NSString*)s;
+    }
+    SInt32 off = 0; MIDIObjectGetIntegerProperty(e, kMIDIPropertyOffline, &off);
+    return [NSString stringWithFormat:@"'%@' device '%@' driver %@%@", name, dname, owner, off ? @" OFFLINE" : @""];
+}
+void logMidiEndpoints(const char* who) {
+    if (!diagValue(@"FM1_DIAG")) return;
+    for (ItemCount i = 0; i < MIDIGetNumberOfSources(); i++) fm1log("%s: source %s", who, describe(MIDIGetSource(i)).UTF8String);
+    for (ItemCount i = 0; i < MIDIGetNumberOfDestinations(); i++) fm1log("%s: destination %s", who, describe(MIDIGetDestination(i)).UTF8String);
+    if (!MIDIGetNumberOfSources() && !MIDIGetNumberOfDestinations()) fm1log("%s: no MIDI endpoints", who);
+}
 
 void fm1log(const char* fmt, ...) {
     static os_log_t log = os_log_create("ca.dallasgroot.fm1sampler", "app");

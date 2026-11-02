@@ -8,6 +8,9 @@
 #include <string>
 #include <vector>
 #include <UiOp.h>
+#include <functional>
+#include <SamplerUI.h>
+using SamplerUIExtraRow = SamplerUI::ExtraRow;
 
 class Session;
 class SamplerApp;
@@ -29,6 +32,7 @@ public:
     void uiTouch(int action /*0 down 1 move 2 up*/, float x, float y, uint32_t nowMs);
     void playNote(int note, bool down);              // as if a key of the FM-1 was pressed (diagnostics script)
     std::string diagLine();                          // one line of engine state for the log (diagnostics)
+    void setExtraRows(std::function<std::vector<SamplerUIExtraRow>()> rows);   // rows at the end of the PROJECT menu (SamplerUI::setExtraRows)
 
 private:
     std::unique_ptr<Session> session_;

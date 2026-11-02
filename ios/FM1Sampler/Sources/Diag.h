@@ -6,3 +6,4 @@
 
 NSString* diagValue(NSString* key);                       // nil when the switch is not set
 void fm1log(const char* fmt, ...) __attribute__((format(printf, 1, 2)));
+void logMidiEndpoints(const char* who);                   // every CoreMIDI source / destination with its device's driver (FM1_DIAG)

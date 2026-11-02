@@ -3,6 +3,8 @@
 #import "AudioIO.h"
 #import "MidiLink.h"
 #include "Core.h"
+#include "RemoteBridge.h"
+#include <atomic>
 #include <memory>
 #include <mach/mach_time.h>
 #include <unistd.h>
@@ -52,6 +54,9 @@ std::vector<Action> parseScript(const char* s) {
     uint64_t _t0;
     double _tickToMs;
     BOOL _started;
+    // RemoteFM1 (optional, Documents/remotefm1 = "1"): an FM-1 with the RemoteFM1 firmware as the panel, over USB or Bluetooth
+    std::unique_ptr<RemoteBridge> _bridge;
+    std::atomic<bool> _toggleRemote, _wantBluetooth;
 }
 
 + (instancetype)shared {
@@ -75,6 +80,16 @@ std::vector<Action> parseScript(const char* s) {
 }
 
 - (Core*)core { return _core.get(); }
+
+// the RemoteFM1 switch survives restarts (Documents/remotefm1); FM1_REMOTEFM1=1 switches it on for a test
+- (BOOL)remoteFM1Enabled {
+    if (diagValue(@"FM1_REMOTEFM1")) return YES;
+    NSString* v = [NSString stringWithContentsOfFile:[_dataDir stringByAppendingPathComponent:@"remotefm1"] encoding:NSUTF8StringEncoding error:nil];
+    return [v hasPrefix:@"1"];
+}
+- (void)setRemoteFM1Enabled:(BOOL)on {
+    [(on ? @"1" : @"0") writeToFile:[_dataDir stringByAppendingPathComponent:@"remotefm1"] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+}
 - (uint32_t)nowMs { return (uint32_t)((mach_absolute_time() - _t0) * _tickToMs); }
 
 - (void)start {
@@ -83,8 +98,37 @@ std::vector<Action> parseScript(const char* s) {
     _audio = [[AudioIO alloc] initWithSession:&_core->session()];
     [_audio start];
     Core* core = _core.get();
-    _midi = [[MidiLink alloc] initWithReceiver:^(const uint8_t* b, size_t n) { core->midiIn(b, n); }];
+    __weak Backend* weakSelf = self;
+    _bridge = std::make_unique<RemoteBridge>(
+        [weakSelf](const uint8_t* p, size_t n) { Backend* s = weakSelf; if (!s) return 1; [s->_midi send:p length:n]; return s->_midi.connected ? 0 : 1; },
+        [](const std::string& m) { fm1log("%s", m.c_str()); });
+    RemoteBridge* bridge = _bridge.get();
+    // The FM-1's bytes: to the bridge while RemoteFM1 is on (it answers HELLO and owns the panel then), else to the app as before
+    _midi = [[MidiLink alloc] initWithReceiver:^(const uint8_t* b, size_t n) {
+        Backend* s = weakSelf;
+        if (bridge->enabled()) bridge->fromUnit(b, n, s ? s.nowMs : 0);
+        if (!bridge->active()) core->midiIn(b, n);
+    }];
     [_midi start];
+    _toggleRemote = false; _wantBluetooth = false;
+    if (self.remoteFM1Enabled) bridge->setEnabled(true, self.nowMs);
+    core->setExtraRows([bridge, weakSelf]() {   // runs inside the UI's lock: read state, raise flags, nothing else
+        std::vector<SamplerUIExtraRow> rows;
+        const bool on = bridge->enabled();
+        SamplerUIExtraRow a;
+        a.label = on ? bridge->status() : "REMOTEFM1 FIRMWARE: OFF";
+        a.hint = on ? "tap: off (this repo's firmware over USB again, lowest latency)" : "tap: drive an FM-1 running RemoteFM1, over USB or Bluetooth";
+        a.hot = on && bridge->active();
+        a.tap = [weakSelf] { Backend* s = weakSelf; if (s) s->_toggleRemote = true; };
+        rows.push_back(a);
+        SamplerUIExtraRow b;
+        b.label = "CONNECT BLUETOOTH FM-1";
+        b.hint = on ? "pair an FM-1 running RemoteFM1 (the sound stays on the phone)" : "needs REMOTEFM1 on";
+        b.enabled = on;
+        b.tap = [weakSelf] { Backend* s = weakSelf; if (s) s->_wantBluetooth = true; };
+        rows.push_back(b);
+        return rows;
+    });
     _ticker = [[NSThread alloc] initWithTarget:self selector:@selector(surfaceLoop) object:nil];
     _ticker.name = @"fm1-surface";
     _ticker.qualityOfService = NSQualityOfServiceUserInteractive;
@@ -111,13 +155,29 @@ std::vector<Action> parseScript(const char* s) {
             }
             if (diag && now - lastDiag >= 2000) {
                 const uint64_t cb = _audio.callbacks;
-                fm1log("%s | audio %.0f cb/s hw %.0f Hz mic %d usb %d | midi %d %s", core->diagLine().c_str(),
+                fm1log("%s | audio %.0f cb/s hw %.0f Hz mic %d usb %d | midi %d%s %s | %s", core->diagLine().c_str(),
                        (cb - lastCb) * 1000.0 / std::max<uint32_t>(1, now - lastDiag), _audio.hardwareRate, _audio.micRunning, _audio.usbOutput,
-                       _midi.connected, (_midi.deviceName ?: @"-").UTF8String);
+                       _midi.connected, _midi.bluetooth ? " ble" : "", (_midi.deviceName ?: @"-").UTF8String, _bridge->status().c_str());
                 lastDiag = now; lastCb = cb;
             }
+            if (_toggleRemote.exchange(false)) {
+                const bool on = !_bridge->enabled();
+                self.remoteFM1Enabled = on;
+                _bridge->setEnabled(on, now);
+                core->say(on ? "REMOTEFM1 ON" : "REMOTEFM1 OFF");
+            }
+            if (_wantBluetooth.exchange(false)) {
+                void (^r)(void) = self.onBluetoothRequest;
+                if (r) dispatch_async(dispatch_get_main_queue(), r);
+            }
+            // the FM-1 port as the bridge's link (it follows plug / unplug and Bluetooth connections)
+            _bridge->setLink(_midi.connected ? std::string((_midi.deviceName ?: @"FM-1").UTF8String) : std::string(), now);
             std::vector<uint8_t> out = core->tick(self.nowMs);
-            if (!out.empty()) [_midi send:out.data() length:out.size()];
+            if (_bridge->active()) _bridge->fromApp(out.data(), out.size());   // RemoteFM1: the bridge is the app's FM-1
+            else if (!out.empty()) [_midi send:out.data() length:out.size()];
+            _bridge->poll(self.nowMs);
+            std::vector<uint8_t> in = _bridge->takeForApp();
+            if (!in.empty()) core->midiIn(in.data(), in.size());
             core->uiLink(_midi.connected, _audio.usbOutput);
             if (core->wantFile()) {
                 void (^r)(void) = self.onFileRequest;

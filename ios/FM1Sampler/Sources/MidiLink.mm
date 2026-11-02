@@ -17,6 +17,16 @@ NSString* endpointName(MIDIEndpointRef e) {
     }
     return n;
 }
+// Bluetooth MIDI (Apple's BLE MIDI driver owns the device): slower than USB, never carries audio
+bool isBluetooth(MIDIEndpointRef e) {
+    MIDIEntityRef ent = 0; MIDIDeviceRef dev = 0; CFStringRef s = nullptr; bool ble = false;
+    if (MIDIEndpointGetEntity(e, &ent) == noErr && ent && MIDIEntityGetDevice(ent, &dev) == noErr && dev &&
+        MIDIObjectGetStringProperty(dev, kMIDIPropertyDriverOwner, &s) == noErr && s) {
+        ble = [((__bridge NSString*)s).lowercaseString containsString:@"bluetooth"]; CFRelease(s);
+    }
+    return ble;
+}
+MIDIEntityRef entityOf(MIDIEndpointRef e) { MIDIEntityRef ent = 0; MIDIEndpointGetEntity(e, &ent); return ent; }
 bool offline(MIDIEndpointRef e) { SInt32 v = 0; return MIDIObjectGetIntegerProperty(e, kMIDIPropertyOffline, &v) == noErr && v; }
 // 2: certainly the FM-1, 1: the loose match of the Android build ("fm" anywhere in the name), 0: not it
 NSString* extraMatch() {   // FM1_MIDI_MATCH=<text>: one more name taken as the FM-1 (diagnostics: a network session from the Mac)
@@ -36,6 +46,7 @@ int umpWords(uint32_t w) { static const int k[16] = {1, 1, 1, 2, 2, 4, 1, 1, 2, 
 @interface MidiLink ()
 @property (atomic, readwrite) BOOL connected;
 @property (atomic, readwrite, copy) NSString* deviceName;
+@property (atomic, readwrite) BOOL bluetooth;
 @end
 
 @implementation MidiLink {
@@ -108,33 +119,41 @@ int umpWords(uint32_t w) { static const int k[16] = {1, 1, 1, 2, 2, 4, 1, 1, 2, 
     [self rescan];
 }
 
+// The FM-1's source, then the destination of the same device (USB preferred to Bluetooth when both are there: no latency, and
+// this repo's firmware answers only over USB).
 - (void)rescan {
+    logMidiEndpoints("midi");
     MIDIEndpointRef src = 0, dst = 0; int bestS = 0, bestD = 0;
     NSString* srcName = nil;
     for (ItemCount i = 0, n = MIDIGetNumberOfSources(); i < n; i++) {
         MIDIEndpointRef e = MIDIGetSource(i);
         if (!e || offline(e)) continue;
-        NSString* nm = endpointName(e); const int s = score(nm);
-        if (s > bestS) { bestS = s; src = e; srcName = nm; }
+        NSString* nm = endpointName(e); const int s = score(nm) * 2 + (isBluetooth(e) ? 0 : 1);
+        if (score(nm) && s > bestS) { bestS = s; src = e; srcName = nm; }
     }
+    const MIDIEntityRef srcEntity = src ? entityOf(src) : 0;
     for (ItemCount i = 0, n = MIDIGetNumberOfDestinations(); i < n; i++) {
         MIDIEndpointRef e = MIDIGetDestination(i);
         if (!e || offline(e)) continue;
-        const int s = score(endpointName(e));
+        const int base = score(endpointName(e));
+        if (!base) continue;
+        const int s = (srcEntity && entityOf(e) == srcEntity ? 100 : 0) + base * 2 + (isBluetooth(e) ? 0 : 1);
         if (s > bestD) { bestD = s; dst = e; }
     }
+    const bool ble = src && isBluetooth(src);
     if (src != _src) {
         if (_src) MIDIPortDisconnectSource(_inPort, _src);
         _src = src;
         if (src) {
             OSStatus r = MIDIPortConnectSource(_inPort, src, nullptr);
-            fm1log("FM-1 source: %s (%d)", srcName.UTF8String, (int)r);
+            fm1log("FM-1 source: %s%s (%d)", srcName.UTF8String, ble ? " [Bluetooth]" : "", (int)r);
         } else fm1log("FM-1 source gone");
     }
     if (dst != _dst.load()) fm1log("FM-1 destination: %s", dst ? "connected" : "gone");
     _dst = dst;
     self.connected = dst != 0;   // read by the surface thread: through the atomic setters
     self.deviceName = srcName;
+    self.bluetooth = ble;
 }
 
 - (void)send:(const uint8_t*)b length:(size_t)n {

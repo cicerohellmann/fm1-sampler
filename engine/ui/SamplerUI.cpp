@@ -813,4 +813,5 @@ void SamplerUI::projectSheet() {
     row("LOOP LENGTH /2", "half as long, the second half is dropped", any, false, [this] { app_.lenAction(false); });
     row(std::string("LOOP SOURCE: ") + app_.knobs(SamplerApp::P_SAVE)[1].value, "what a take records: the track's sound or the microphone", true, false,
         [this] { auto k = app_.knobs(SamplerApp::P_SAVE); k[1].step(k[1].norm > 0.5f ? -1 : 1); });
+    if (extraRows_) for (auto& r : extraRows_()) row(r.label, r.hint, r.enabled, r.hot, r.enabled && r.tap ? r.tap : std::function<void()>([] {}));
 }

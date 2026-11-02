@@ -24,6 +24,8 @@
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Bluetooth connects an FM-1 that runs the RemoteFM1 firmware, without a cable.</string>
 	<key>NSBonjourServices</key>
 	<array>
 		<string>_apple-midi._udp</string>

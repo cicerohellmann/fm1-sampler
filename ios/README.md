@@ -12,6 +12,7 @@ The iPhone build of the sampler + looper. Like the Android app, everything that 
 | `SamplerView.java` | `SamplerView.*` | replays the UI's draw ops with Core Graphics (Menlo, the monospace `SamplerUI::fit` assumes), one-finger touch; the layout gets the safe area (860 x 400 units minimum, scaled to fit) |
 | `SamplerActivity.java` | `ViewController.*`, `AppDelegate.*` | full screen landscape, status bar and home indicator hidden, edge gestures deferred (the timeline sits at the bottom edge), system file picker, screen kept on |
 | `AudioImport.java` (MediaCodec) | `AudioImport.*` (AVAudioFile) | a picked file -> `sample_<name>.wav` (16-bit, its own rate, max 90 s, max 2 channels) |
+| (none) | `RemoteBridge.*`, `ThirdParty/remotefm1` | optional: an FM-1 running the RemoteFM1 firmware, over USB or Bluetooth (below) |
 
 Data: `Documents/` holds the saved samples (`sample_*.wav`, the "User" group of the library) and the theme; it is visible in the Files app,
 so WAVs named `sample_*.wav` can be dropped in and recordings taken out. The bundled library is read in place from the app bundle (`samples/`).
@@ -21,6 +22,27 @@ Audio keeps running in the background (background mode `audio`), like the Androi
 USB: the FM-1's USB cable into the iPhone's USB-C port (USB-C to USB-C, or the FM-1's cable with a USB-C adapter). That one cable carries MIDI
 (keys, buttons, encoders, its screen, LEDs) and the audio to the FM-1's jack. No Bluetooth, no pairing. Flash the firmware of this repository first
 (`firmware/FM1-Sampler-Workbench.html`, see the main README). Without the FM-1 the app plays through the phone's speaker or headphones.
+
+## Optional: RemoteFM1 and Bluetooth
+USB with this repository's firmware stays the way to play: it is the only path that also carries the audio to the FM-1's jack, with no
+added latency. As an option the app can also drive an FM-1 that runs [RemoteFM1](https://github.com/Quixotic7/RemoteFM1) (its web
+installer flashes it), which works over USB-MIDI and over **Bluetooth MIDI**, no cable. Over Bluetooth the sound stays on the phone
+(speaker or wired / USB-C headphones): Bluetooth MIDI carries no audio, and the FM-1 as a Bluetooth speaker would add 150-250 ms.
+
+- **Switch:** PROJECT menu (the ≡ icon) -> **REMOTEFM1 FIRMWARE** (off by default, remembered in `Documents/remotefm1`). Off: nothing of
+  this runs. On: the app also sends RemoteFM1's HELLO to the FM-1 port; this repository's firmware ignores it and keeps working as before
+  (tested), a RemoteFM1 unit answers and the bridge takes over.
+- **Bluetooth:** PROJECT -> **CONNECT BLUETOOTH FM-1** opens Apple's Bluetooth MIDI panel; tap the FM-1 ("FM-1 XXXX"). When a USB and a
+  Bluetooth FM-1 are both there, USB wins.
+- **How:** the app keeps speaking this repository's protocol to "its FM-1"; `RemoteBridge` plays that firmware's side on the phone (the
+  draw commands decoded into a 240x240 frame with `engine/tools/fm1_screen.h`, LEDs into RemoteFM1's LED columns, PONG, the key / scale
+  mapping and OCT-/OCT+ of `firmware/app/ctrl.c`) and RemoteFM1's host library (`ThirdParty/remotefm1`, MPL-2.0, vendored unchanged)
+  runs the session: discovery by HELLO, changed 16x16 tiles paced for the link (Bluetooth ~5.5 KB/s, 4-colour tiles while the screen
+  moves, exact once it is still, whole screens with HOLD), LEDS, keepalive, PANEL_R resync. RemoteFM1's panel MIDI (keys `9F 53+k`,
+  buttons `9E b`, encoders `BE 16+e`, MASTER) becomes this firmware's messages; button, key, encoder ids and the LED matrix are the same
+  hardware matrix in both firmwares (checked id by id).
+- **Host test:** `tests/run_tests.sh` (ASan + UBSan) runs the app's real Core against RemoteFM1's fake unit over a USB and a Bluetooth
+  link: session, the unit's screen equal to the app's pixel for pixel, LEDs, buttons, keys, encoders, OCT, switching off.
 
 ## Build and install
 Needs Xcode 26 and [XcodeGen](https://github.com/yonaskolb/XcodeGen) (the project is generated from `project.yml`; the generated
@@ -45,6 +67,10 @@ Off unless switched on, through the launch environment or `Documents/diag.env` (
 | `FM1_SCRIPT=...` | timed actions, `;` separated: `<ms> tap <x> <y>`, `<ms> drag <x1> <y1> <x2> <y2> <dur>` (UI units, logged as `layout:`), `<ms> note <n> <hold>`, `<ms> snap <name>` |
 | `FM1_IMPORT=a.m4a,b.aif` | imports `Documents/import/<file>` as if picked |
 | `FM1_NETMIDI=1` + `FM1_MIDI_MATCH=session` | opens the network MIDI session and takes it as the FM-1 |
+| `FM1_MIDI_MATCH=<text>` | also take a port whose name holds `<text>` as the FM-1 (e.g. `ios bluetooth` for the fake unit below) |
+| `FM1_REMOTEFM1=1` | the RemoteFM1 bridge on, without touching the saved switch |
+| `FM1_FAKE_UNIT=1` | this phone plays an FM-1 running RemoteFM1 over Bluetooth MIDI (RemoteFM1's fake unit behind Apple's peripheral panel: tap "Bluetooth MIDI: advertise"), shows its screen and LEDs |
+| `FM1_UNIT_SCRIPT=...` | the fake unit's panel, ms after its session starts: `<ms> btn <b>`, `<ms> key <k> <hold>`, `<ms> enc <e> <d>`, `<ms> snap <name>` (`Documents/diag/unit_<name>.png`) |
 
 `tools/fm1emu.mm` is the FM-1 on the Mac: it joins that session over AppleMIDI / RTP-MIDI, plays the FM-1 side of `PROTOCOL.md` (keys, buttons,
 encoders, SCALE every 2 s, PONG for PING, REDRAW on connect, RTP losses reported as dropped frames) and decodes the screen commands with
@@ -64,6 +90,12 @@ clang++ -std=c++20 -fobjc-arc -I../engine/tools tools/fm1emu.mm -framework Found
   microphone sampling (the phone's own speaker as the source).
 - Import: AAC, ALAC, 24-bit AIFF, float WAV, 22 kHz CAF; a broken file is refused; a 120 s file is cut at 90 s.
 
+- RemoteFM1 over real Bluetooth, two iPhones: the 14 Pro Max as the fake unit (Bluetooth peripheral), the 17 Pro as the sampler connected
+  through CONNECT BLUETOOTH FM-1. The session found the unit by HELLO and paced for Bluetooth (5.5 KB/s, HOLD); the unit's FX, HOME, key,
+  SELECT encoder, ENV presses reached the app in order; the unit drew every page (107 frames, 41 KB of tiles, 0 decode errors) and the LEDs.
+  The native path with the switch on: unchanged (the emulator answers no HELLO, 8 / 8 PONGs).
+
 Not tested (no hardware): the FM-1 over USB itself (USB MIDI and USB audio routing). CoreMIDI treats USB and network endpoints the same way,
 and iOS routes the output to a USB audio device on its own, but the first session with the FM-1 should check: the FM-1 is found
-("FM-1 source" in the log), its screen and LEDs, the audio on its jack, the built-in mic still being the input while the FM-1 is plugged in.
+("FM-1 source" in the log), its screen and LEDs, the audio on its jack, the built-in mic still being the input while the FM-1 is plugged in;
+and a real FM-1 running RemoteFM1 (over USB and Bluetooth: its Bluetooth name, the screen rate).

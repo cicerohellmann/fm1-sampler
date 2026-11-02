@@ -1,5 +1,7 @@
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import "FakeUnitViewController.h"
+#import "Diag.h"
 
 @implementation AppDelegate
 - (BOOL)application:(UIApplication*)app didFinishLaunchingWithOptions:(NSDictionary*)opts {
@@ -16,7 +18,8 @@
 @implementation SceneDelegate
 - (void)scene:(UIScene*)scene willConnectToSession:(UISceneSession*)session options:(UISceneConnectionOptions*)opts {
     self.window = [[UIWindow alloc] initWithWindowScene:(UIWindowScene*)scene];
-    self.window.rootViewController = [[ViewController alloc] init];
+    // FM1_FAKE_UNIT=1 (diagnostics): this phone plays an FM-1 running RemoteFM1 over Bluetooth instead of being the sampler
+    self.window.rootViewController = diagValue(@"FM1_FAKE_UNIT") ? (UIViewController*)[[FakeUnitViewController alloc] init] : [[ViewController alloc] init];
     [self.window makeKeyAndVisible];
 }
 @end

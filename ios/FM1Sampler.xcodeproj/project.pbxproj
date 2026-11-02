@@ -9,12 +9,15 @@
 /* Begin PBXBuildFile section */
 		0BC584442A0C9224CD675904 /* samples in Resources */ = {isa = PBXBuildFile; fileRef = D2266527A30C1EF60191E647 /* samples */; };
 		1A6469A83CD202727C29F0C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B157018CC9A46A6F0E8CF098 /* UIKit.framework */; };
+		1B42F3D20499A407E72431AE /* rfm_panel.c in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF0E6FFB2B6428FD8AA805 /* rfm_panel.c */; settings = {COMPILER_FLAGS = "-w -O2 -std=c99"; }; };
 		1C62FE866E110EDC4891E363 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = B03D636F6C70EE639F261D79 /* AppDelegate.mm */; };
 		1D95F2828530DDCE820CABAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7740FE94C6164B7D1CBB6231 /* Assets.xcassets */; };
+		23A72BDD91C253F32F006156 /* FakeUnitViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D63513AB8F58D931628C850 /* FakeUnitViewController.mm */; };
 		2643AF7AC9CE71EBE36DA24D /* Backend.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2406F0A89CB0AFDBB2DC148F /* Backend.mm */; };
 		3726754F6845CF4F5D0491F5 /* SamplerUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4702B405562025F53DB582BB /* SamplerUI.cpp */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
 		42FFA81908B3F9E3D39FC70E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BCD93EFCBC2247C345FD5A /* Foundation.framework */; };
 		4F48F667D558283AC2C4EE9D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F87430B55AECB70C64515CA /* AudioToolbox.framework */; };
+		509C07A80508314503E9F861 /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0C08A720BB34D3149F694B /* CoreAudioKit.framework */; };
 		6459967F540D7C4E49228709 /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 6474FB66BA0D6C05F9367F65 /* kiss_fft.c */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
 		6C6A702BBCC2773ECC5DEAFB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35D15A5DC0CE8DC9CE71563F /* QuartzCore.framework */; };
 		6E2B9A328C49C8B7A40C96EA /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AA36EA0A8F86B845D291E41 /* UniformTypeIdentifiers.framework */; };
@@ -24,32 +27,45 @@
 		80563C0F66C4C77D8E833C43 /* MidiLink.mm in Sources */ = {isa = PBXBuildFile; fileRef = 713CFCE6D269F03F4DC2B07E /* MidiLink.mm */; };
 		82266F1E10F16B71E2157210 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83404696AB0C1E8CBC195732 /* CoreMIDI.framework */; };
 		87E8308ED996410DA0630CB7 /* AudioImport.mm in Sources */ = {isa = PBXBuildFile; fileRef = B302D2DB26BBFCB9CCBB1309 /* AudioImport.mm */; };
+		93776545D4E083FF968E491B /* RemoteBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B76A62B4BC49BD60E655D767 /* RemoteBridge.cpp */; };
+		9CAC50572FE44499242DDC2A /* rfm_session.c in Sources */ = {isa = PBXBuildFile; fileRef = 5FC417331F356DFB8F0D77BB /* rfm_session.c */; settings = {COMPILER_FLAGS = "-w -O2 -std=c99"; }; };
 		A091C4D34AA816E5143E1A66 /* SamplerApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 258DB2B9FC5C15D14237B3DF /* SamplerApp.cpp */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
 		A27A155BDCDC2EFAA00F32E3 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248AB9104AB111B3A43E991C /* CoreText.framework */; };
 		ABDC5B8E4EA4253DF9E83199 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A6A055451F1BB0DD2B6874 /* AVFoundation.framework */; };
 		AC264D27033D2BED424DF091 /* Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA5B0D04DAD49AA0D1ED0347 /* Session.cpp */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
+		AFA213E3836EFCC5CDBC3D66 /* rfm_screen.c in Sources */ = {isa = PBXBuildFile; fileRef = 321C4B393D9013947C245C28 /* rfm_screen.c */; settings = {COMPILER_FLAGS = "-w -O2 -std=c99"; }; };
 		B3C79ED62C825A6B909FB5B0 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3855D0AEE41D3BEA96923C2A /* ViewController.mm */; };
+		C19B0A01C21D2E89BF67DF1E /* rfm_tiles_ref.c in Sources */ = {isa = PBXBuildFile; fileRef = 01B01B2D937D32BB6DBB2644 /* rfm_tiles_ref.c */; settings = {COMPILER_FLAGS = "-w -O2 -std=c99"; }; };
 		C3C663341F6B0E41FC7C165D /* Paul.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2ECE123D4E5B2D28DC8F130C /* Paul.cpp */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
 		CBB58329A4720CDF28952C99 /* Wav.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C66B6B4FA244D0E68A034A14 /* Wav.cpp */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
+		CCFC356A3A55DB14320A9DF8 /* rfm_codec.c in Sources */ = {isa = PBXBuildFile; fileRef = 094D2EA0737C9B33E6026033 /* rfm_codec.c */; settings = {COMPILER_FLAGS = "-w -O2 -std=c99"; }; };
 		D22444ADDE73D9F0D0D7D950 /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5E205B38C3E39AB358C633 /* kiss_fftr.c */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
 		D742A77D4DC660CA1E5B6958 /* Core.mm in Sources */ = {isa = PBXBuildFile; fileRef = E563A15A07BA5560822503DC /* Core.mm */; };
 		E071FCDCDF860BF41F2DE45D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A81CBDCDED07E98BB42025 /* CoreGraphics.framework */; };
 		E981E345AA11838619BEF6FA /* Diag.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDFD97BDBD07AAC5B3A378D7 /* Diag.mm */; };
+		E99BEC0921977648A2BE6D9D /* rfm_fake.c in Sources */ = {isa = PBXBuildFile; fileRef = A644B0C8ED57D7F6EFD83650 /* rfm_fake.c */; settings = {COMPILER_FLAGS = "-w -O2 -std=c99"; }; };
 		EDA107825606D8168CCAD77C /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 499FDC490731DCC311190458 /* main.mm */; };
 		F90CD6EAF5373C02F281151C /* Sampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF1276D9CD551F4B5F07F1A /* Sampler.cpp */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01B01B2D937D32BB6DBB2644 /* rfm_tiles_ref.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rfm_tiles_ref.c; sourceTree = "<group>"; };
 		02BCD93EFCBC2247C345FD5A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		05AF0FDDC7F1DABFB64A4C04 /* AudioIO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioIO.h; sourceTree = "<group>"; };
+		094D2EA0737C9B33E6026033 /* rfm_codec.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rfm_codec.c; sourceTree = "<group>"; };
+		192DA03136853319822784A6 /* screen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = screen.h; sourceTree = "<group>"; };
 		19A81CBDCDED07E98BB42025 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1B23C6F9CC416AD26A2D40A3 /* panel.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = panel.c; sourceTree = "<group>"; };
+		1BA7580210EAA67C4F6329A4 /* FakeUnitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FakeUnitViewController.h; sourceTree = "<group>"; };
 		1BEBFA1048D7D30E0867A8CB /* Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
 		2406F0A89CB0AFDBB2DC148F /* Backend.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Backend.mm; sourceTree = "<group>"; };
 		248AB9104AB111B3A43E991C /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		258DB2B9FC5C15D14237B3DF /* SamplerApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SamplerApp.cpp; sourceTree = "<group>"; };
 		280263D0A4A6BB72C740F4C1 /* SamplerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SamplerView.h; sourceTree = "<group>"; };
+		2CBEEE489083D01E5A8DAD43 /* remote_proto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = remote_proto.h; sourceTree = "<group>"; };
 		2D145033D8DAB9AA21761E6D /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		2ECE123D4E5B2D28DC8F130C /* Paul.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Paul.cpp; sourceTree = "<group>"; };
+		321C4B393D9013947C245C28 /* rfm_screen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rfm_screen.c; sourceTree = "<group>"; };
 		355272B0892B8C6819A4E541 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		35D15A5DC0CE8DC9CE71563F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3855D0AEE41D3BEA96923C2A /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
@@ -60,19 +76,30 @@
 		499FDC490731DCC311190458 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		4A4D7E66BB70B12206614F5F /* TapeInsert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TapeInsert.h; sourceTree = "<group>"; };
 		4D95FD68FD7373FD7083E502 /* SamplerView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SamplerView.mm; sourceTree = "<group>"; };
+		4FE7DF30C13745168C3AC01E /* session.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = session.h; sourceTree = "<group>"; };
+		530DA796D822E7749F7BC696 /* LICENSE */ = {isa = PBXFileReference; path = LICENSE; sourceTree = "<group>"; };
+		553EE9B261228F02C1A19295 /* screen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = screen.c; sourceTree = "<group>"; };
 		5645312CE17F7981A33B4669 /* Filter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
+		575B9F091E002FDE8DD60369 /* session.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = session.c; sourceTree = "<group>"; };
 		5AA36EA0A8F86B845D291E41 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
+		5FC417331F356DFB8F0D77BB /* rfm_session.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rfm_session.c; sourceTree = "<group>"; };
 		5FF1276D9CD551F4B5F07F1A /* Sampler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sampler.cpp; sourceTree = "<group>"; };
 		61F07B3D13ECEBEF153B77DE /* Arp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Arp.h; sourceTree = "<group>"; };
 		6474FB66BA0D6C05F9367F65 /* kiss_fft.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = kiss_fft.c; path = ../engine/3rdparty/kissfft/kiss_fft.c; sourceTree = "<group>"; };
 		6A5841F66C22C83361C7686B /* Pitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pitch.h; sourceTree = "<group>"; };
 		713CFCE6D269F03F4DC2B07E /* MidiLink.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MidiLink.mm; sourceTree = "<group>"; };
+		730BE6E3EAF1AC051965EFDC /* tiles_ref.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tiles_ref.h; sourceTree = "<group>"; };
 		74ABAF62CE96F91C3BE42FD7 /* Stretch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Stretch.cpp; sourceTree = "<group>"; };
 		7740FE94C6164B7D1CBB6231 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7AAF0E6FFB2B6428FD8AA805 /* rfm_panel.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rfm_panel.c; sourceTree = "<group>"; };
 		7F87430B55AECB70C64515CA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		812C921286D3BD66EE8156AE /* MidiLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MidiLink.h; sourceTree = "<group>"; };
 		83404696AB0C1E8CBC195732 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		8E772741EC31300A6A9F1712 /* Backend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Backend.h; sourceTree = "<group>"; };
+		9C0C08A720BB34D3149F694B /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
+		9D63513AB8F58D931628C850 /* FakeUnitViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FakeUnitViewController.mm; sourceTree = "<group>"; };
+		A644B0C8ED57D7F6EFD83650 /* rfm_fake.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rfm_fake.c; sourceTree = "<group>"; };
+		A9932C6D2DF4396BC88E0F47 /* fake.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fake.c; sourceTree = "<group>"; };
 		AAA0976120A515653EC1DE1F /* Paul.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Paul.h; sourceTree = "<group>"; };
 		AD16CEAF6816E82C0F6DB1A2 /* UiOp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UiOp.h; sourceTree = "<group>"; };
 		B0394FDC1CBC0B67FF0304B8 /* Adsr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Adsr.h; sourceTree = "<group>"; };
@@ -80,12 +107,19 @@
 		B157018CC9A46A6F0E8CF098 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B302D2DB26BBFCB9CCBB1309 /* AudioImport.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioImport.mm; sourceTree = "<group>"; };
 		B48B07D6CC1E85C073133DE4 /* SamplerUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SamplerUI.h; sourceTree = "<group>"; };
+		B76A62B4BC49BD60E655D767 /* RemoteBridge.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RemoteBridge.cpp; sourceTree = "<group>"; };
+		B925171D4D0F0FD3786C0E87 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B98338C27C027E38D5E0698A /* codec.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = codec.c; sourceTree = "<group>"; };
 		BB126B0D84B12AF0D85D5417 /* Slicer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Slicer.h; sourceTree = "<group>"; };
+		C5205D762FD96F6DBDD90039 /* rfm1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rfm1.h; sourceTree = "<group>"; };
 		C66B6B4FA244D0E68A034A14 /* Wav.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Wav.cpp; sourceTree = "<group>"; };
+		CA1F5A09F31E01772D3ED9CE /* codec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = codec.h; sourceTree = "<group>"; };
+		CBFB3F9E5ABA6067112FAA9E /* tiles_ref.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = tiles_ref.c; sourceTree = "<group>"; };
 		CC439BA27E97219563F0F07A /* AudioIO.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioIO.mm; sourceTree = "<group>"; };
 		CE011C68F47A00F9EE484C86 /* Reverb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reverb.h; sourceTree = "<group>"; };
 		D14E54A66726C8378F242EC1 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		D2266527A30C1EF60191E647 /* samples */ = {isa = PBXFileReference; lastKnownFileType = folder; name = samples; path = ../samples; sourceTree = SOURCE_ROOT; };
+		DD96F6D450BB551442428FDB /* RemoteBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemoteBridge.h; sourceTree = "<group>"; };
 		E00B14C81F2E0B27C0B0480C /* Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
 		E08743E51071745F9A06AF42 /* Sampler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sampler.h; sourceTree = "<group>"; };
 		E563A15A07BA5560822503DC /* Core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Core.mm; sourceTree = "<group>"; };
@@ -96,8 +130,10 @@
 		ED5E205B38C3E39AB358C633 /* kiss_fftr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = kiss_fftr.c; path = ../engine/3rdparty/kissfft/kiss_fftr.c; sourceTree = "<group>"; };
 		EDFD97BDBD07AAC5B3A378D7 /* Diag.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Diag.mm; sourceTree = "<group>"; };
 		F10FE2300F413FBE6385C2CD /* Stretch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stretch.h; sourceTree = "<group>"; };
+		F6861400FBCE9A14FCB9CB9F /* fake.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fake.h; sourceTree = "<group>"; };
 		F9A6A055451F1BB0DD2B6874 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		FA5B0D04DAD49AA0D1ED0347 /* Session.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Session.cpp; sourceTree = "<group>"; };
+		FCF114DE1FA17B345023815C /* panel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +144,7 @@
 				ABDC5B8E4EA4253DF9E83199 /* AVFoundation.framework in Frameworks */,
 				4F48F667D558283AC2C4EE9D /* AudioToolbox.framework in Frameworks */,
 				82266F1E10F16B71E2157210 /* CoreMIDI.framework in Frameworks */,
+				509C07A80508314503E9F861 /* CoreAudioKit.framework in Frameworks */,
 				A27A155BDCDC2EFAA00F32E3 /* CoreText.framework in Frameworks */,
 				6E2B9A328C49C8B7A40C96EA /* UniformTypeIdentifiers.framework in Frameworks */,
 				6C6A702BBCC2773ECC5DEAFB /* QuartzCore.framework in Frameworks */,
@@ -120,6 +157,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		085F8053353298AECE19E56B /* remotefm1 */ = {
+			isa = PBXGroup;
+			children = (
+				530DA796D822E7749F7BC696 /* LICENSE */,
+				B925171D4D0F0FD3786C0E87 /* README.md */,
+				DB2E6197AC592C02B5DC6C55 /* firmware */,
+				E4641C677063EC03DDD7C470 /* include */,
+				4E749EA8C43F577091C54A7A /* proto */,
+				F99C6FE065E6D40FD43CB01D /* src */,
+			);
+			path = remotefm1;
+			sourceTree = "<group>";
+		};
 		19A38B67CBA448346392830F /* dsp */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,15 +210,40 @@
 				E563A15A07BA5560822503DC /* Core.mm */,
 				EAEEC505CBFE9F70DFDDE909 /* Diag.h */,
 				EDFD97BDBD07AAC5B3A378D7 /* Diag.mm */,
+				1BA7580210EAA67C4F6329A4 /* FakeUnitViewController.h */,
+				9D63513AB8F58D931628C850 /* FakeUnitViewController.mm */,
 				499FDC490731DCC311190458 /* main.mm */,
 				812C921286D3BD66EE8156AE /* MidiLink.h */,
 				713CFCE6D269F03F4DC2B07E /* MidiLink.mm */,
+				B76A62B4BC49BD60E655D767 /* RemoteBridge.cpp */,
+				DD96F6D450BB551442428FDB /* RemoteBridge.h */,
 				280263D0A4A6BB72C740F4C1 /* SamplerView.h */,
 				4D95FD68FD7373FD7083E502 /* SamplerView.mm */,
 				D14E54A66726C8378F242EC1 /* ViewController.h */,
 				3855D0AEE41D3BEA96923C2A /* ViewController.mm */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		3C724D6841774803BE0AB22D /* src */ = {
+			isa = PBXGroup;
+			children = (
+				2CBEEE489083D01E5A8DAD43 /* remote_proto.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		447F3043B959AD34714350CF /* RemoteFM1 */ = {
+			isa = PBXGroup;
+			children = (
+				094D2EA0737C9B33E6026033 /* rfm_codec.c */,
+				A644B0C8ED57D7F6EFD83650 /* rfm_fake.c */,
+				7AAF0E6FFB2B6428FD8AA805 /* rfm_panel.c */,
+				321C4B393D9013947C245C28 /* rfm_screen.c */,
+				5FC417331F356DFB8F0D77BB /* rfm_session.c */,
+				01B01B2D937D32BB6DBB2644 /* rfm_tiles_ref.c */,
+			);
+			path = RemoteFM1;
 			sourceTree = "<group>";
 		};
 		47E51D2891856C0546392860 /* session */ = {
@@ -179,6 +254,14 @@
 			);
 			name = session;
 			path = ../engine/session;
+			sourceTree = "<group>";
+		};
+		48212A50AC06A94266A588D7 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				085F8053353298AECE19E56B /* remotefm1 */,
+			);
+			path = ThirdParty;
 			sourceTree = "<group>";
 		};
 		4A3FBA9704CC41BD3083D60B /* ui */ = {
@@ -197,9 +280,18 @@
 			isa = PBXGroup;
 			children = (
 				7740FE94C6164B7D1CBB6231 /* Assets.xcassets */,
+				447F3043B959AD34714350CF /* RemoteFM1 */,
 				260B74BE07E4A1B7644DB13B /* Sources */,
 			);
 			path = FM1Sampler;
+			sourceTree = "<group>";
+		};
+		4E749EA8C43F577091C54A7A /* proto */ = {
+			isa = PBXGroup;
+			children = (
+				C5205D762FD96F6DBDD90039 /* rfm1.h */,
+			);
+			path = proto;
 			sourceTree = "<group>";
 		};
 		4FF4C3547EFF3AD4DB9EE723 /* engine */ = {
@@ -211,6 +303,19 @@
 				4A3FBA9704CC41BD3083D60B /* ui */,
 			);
 			path = engine;
+			sourceTree = "<group>";
+		};
+		6E8B5658618D8F154E0743A1 /* rfm */ = {
+			isa = PBXGroup;
+			children = (
+				CA1F5A09F31E01772D3ED9CE /* codec.h */,
+				F6861400FBCE9A14FCB9CB9F /* fake.h */,
+				FCF114DE1FA17B345023815C /* panel.h */,
+				192DA03136853319822784A6 /* screen.h */,
+				4FE7DF30C13745168C3AC01E /* session.h */,
+				730BE6E3EAF1AC051965EFDC /* tiles_ref.h */,
+			);
+			path = rfm;
 			sourceTree = "<group>";
 		};
 		7AEED903C645A59BB4FF51B7 /* app */ = {
@@ -228,6 +333,7 @@
 			children = (
 				7F87430B55AECB70C64515CA /* AudioToolbox.framework */,
 				F9A6A055451F1BB0DD2B6874 /* AVFoundation.framework */,
+				9C0C08A720BB34D3149F694B /* CoreAudioKit.framework */,
 				19A81CBDCDED07E98BB42025 /* CoreGraphics.framework */,
 				83404696AB0C1E8CBC195732 /* CoreMIDI.framework */,
 				248AB9104AB111B3A43E991C /* CoreText.framework */,
@@ -261,6 +367,14 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		DB2E6197AC592C02B5DC6C55 /* firmware */ = {
+			isa = PBXGroup;
+			children = (
+				3C724D6841774803BE0AB22D /* src */,
+			);
+			path = firmware;
+			sourceTree = "<group>";
+		};
 		DDE11EDB243EF9F142DB2488 /* kissfft */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,12 +384,21 @@
 			name = kissfft;
 			sourceTree = "<group>";
 		};
+		E4641C677063EC03DDD7C470 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				6E8B5658618D8F154E0743A1 /* rfm */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		F4A82746DA41ED86BFE9E846 = {
 			isa = PBXGroup;
 			children = (
 				ABD9DC93F561265D3FE12F3A /* Engine */,
 				BFFB78D12263F2A820933D3A /* fm1-sampler */,
 				4DFBEBCC47E2339298CCF6B8 /* FM1Sampler */,
+				48212A50AC06A94266A588D7 /* ThirdParty */,
 				8375DBCCEB45A706A518528E /* Frameworks */,
 				F82C33D69DC141913A809111 /* Products */,
 			);
@@ -287,6 +410,19 @@
 				3C380247DAD6D8156078EB77 /* FM1Sampler.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F99C6FE065E6D40FD43CB01D /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B98338C27C027E38D5E0698A /* codec.c */,
+				A9932C6D2DF4396BC88E0F47 /* fake.c */,
+				1B23C6F9CC416AD26A2D40A3 /* panel.c */,
+				553EE9B261228F02C1A19295 /* screen.c */,
+				575B9F091E002FDE8DD60369 /* session.c */,
+				CBFB3F9E5ABA6067112FAA9E /* tiles_ref.c */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -368,8 +504,10 @@
 				2643AF7AC9CE71EBE36DA24D /* Backend.mm in Sources */,
 				D742A77D4DC660CA1E5B6958 /* Core.mm in Sources */,
 				E981E345AA11838619BEF6FA /* Diag.mm in Sources */,
+				23A72BDD91C253F32F006156 /* FakeUnitViewController.mm in Sources */,
 				80563C0F66C4C77D8E833C43 /* MidiLink.mm in Sources */,
 				C3C663341F6B0E41FC7C165D /* Paul.cpp in Sources */,
+				93776545D4E083FF968E491B /* RemoteBridge.cpp in Sources */,
 				F90CD6EAF5373C02F281151C /* Sampler.cpp in Sources */,
 				A091C4D34AA816E5143E1A66 /* SamplerApp.cpp in Sources */,
 				3726754F6845CF4F5D0491F5 /* SamplerUI.cpp in Sources */,
@@ -381,6 +519,12 @@
 				6459967F540D7C4E49228709 /* kiss_fft.c in Sources */,
 				D22444ADDE73D9F0D0D7D950 /* kiss_fftr.c in Sources */,
 				EDA107825606D8168CCAD77C /* main.mm in Sources */,
+				CCFC356A3A55DB14320A9DF8 /* rfm_codec.c in Sources */,
+				E99BEC0921977648A2BE6D9D /* rfm_fake.c in Sources */,
+				1B42F3D20499A407E72431AE /* rfm_panel.c in Sources */,
+				AFA213E3836EFCC5CDBC3D66 /* rfm_screen.c in Sources */,
+				9CAC50572FE44499242DDC2A /* rfm_session.c in Sources */,
+				C19B0A01C21D2E89BF67DF1E /* rfm_tiles_ref.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +610,10 @@
 					"$(SRCROOT)/../engine/app",
 					"$(SRCROOT)/../engine/ui",
 					"$(SRCROOT)/../engine/3rdparty/kissfft",
+					"$(SRCROOT)/../engine/tools",
+					"$(SRCROOT)/ThirdParty/remotefm1/include",
+					"$(SRCROOT)/ThirdParty/remotefm1/proto",
+					"$(SRCROOT)/ThirdParty/remotefm1/firmware/src",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 0.37;
@@ -538,6 +686,10 @@
 					"$(SRCROOT)/../engine/app",
 					"$(SRCROOT)/../engine/ui",
 					"$(SRCROOT)/../engine/3rdparty/kissfft",
+					"$(SRCROOT)/../engine/tools",
+					"$(SRCROOT)/ThirdParty/remotefm1/include",
+					"$(SRCROOT)/ThirdParty/remotefm1/proto",
+					"$(SRCROOT)/ThirdParty/remotefm1/firmware/src",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 0.37;

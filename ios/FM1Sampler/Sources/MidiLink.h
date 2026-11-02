@@ -12,4 +12,5 @@ typedef void (^MidiReceiver)(const uint8_t* bytes, size_t n);
 - (void)send:(const uint8_t*)bytes length:(size_t)n;    // complete SysEx messages (F0 .. F7), any thread
 @property (atomic, readonly) BOOL connected;            // a destination to the FM-1 is open
 @property (atomic, readonly, copy) NSString* deviceName;
+@property (atomic, readonly) BOOL bluetooth;               // the FM-1 port is Bluetooth MIDI
 @end
