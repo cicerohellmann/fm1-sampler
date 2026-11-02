@@ -417,7 +417,7 @@ void SamplerApp::onMidi(const uint8_t* m, size_t n) {
     }
 }
 void SamplerApp::onSysex(const uint8_t* m, size_t n) {
-    if (n < 9 || m[1] != 0x7d || m[2] != 'D' || m[3] != 'A' || m[4] != 'W') return;
+    if (n < 8 || m[1] != 0x7d || m[2] != 'D' || m[3] != 'A' || m[4] != 'W') return;
     linkSeen_ = true;
     if (m[6] == 0x41 && n >= 12) {   // the firmware's own SEL screen / OCT buttons: its scale index is the tonality unless it is the OFF we keep it on
         if ((m[7] & 7) != 7) { scale_.scale = m[7] & 7; fwDirty_ = true; }

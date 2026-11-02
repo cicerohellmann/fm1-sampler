@@ -15,3 +15,7 @@ __pycache__/
 firmware/FM1-DAW-Workbench.html
 android/app/.cxx/
 android/**/.cxx/
+# iOS build output
+ios/build/
+ios/FM1Sampler.xcodeproj/xcuserdata/
+ios/FM1Sampler.xcodeproj/project.xcworkspace/xcuserdata/

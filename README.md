@@ -1,6 +1,8 @@
 # fm1-sampler
 
-A **sampler + audio looper** (8 tracks) for Android with the M-VAVE FM-1 as its hardware front end. The phone does all the sound; the FM-1 is the
+> **iOS port.** This fork of [ferluht/fm1-sampler](https://github.com/ferluht/fm1-sampler) adds a native iPhone app in [`ios/`](ios/README.md): the same C++ engine, UI and FM-1 protocol, with a CoreAudio / CoreMIDI / CoreGraphics shell in place of the Android one. Tested on an iPhone 17 Pro (see the iOS README for what was and was not tested).
+
+A **sampler + audio looper** (8 tracks) for Android and iOS (see [ios/README.md](ios/README.md)) with the M-VAVE FM-1 as its hardware front end. The phone does all the sound; the FM-1 is the
 control surface (keys, buttons, 7 encoders), the second screen (240x240, drawn with SysEx commands) and the audio output (USB audio).
 All DSP is original code in `engine/dsp` (no third-party audio engine); the only library is KissFFT (BSD) for the Paulstretch mode.
 
