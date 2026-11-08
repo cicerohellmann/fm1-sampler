@@ -73,7 +73,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: ca.dallasgroot.fm1sampler
         PRODUCT_NAME: FM1Sampler
-        TARGETED_DEVICE_FAMILY: "1"
+        TARGETED_DEVICE_FAMILY: "1,2"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         SUPPORTS_MACCATALYST: NO
         SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
@@ -86,9 +86,10 @@ targets:
         LSRequiresIPhoneOS: true
         UILaunchScreen:
           UIColorName: ""
-        UIRequiresFullScreen: true
+        UIRequiresFullScreen: true   # kept on iPad too: the layout needs 860 x 400 units, Split View / Slide Over would give less
         UIStatusBarHidden: true
         UISupportedInterfaceOrientations: [UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
         UIBackgroundModes: [audio]
         NSMicrophoneUsageDescription: The microphone records new samples and loops.
         NSBluetoothAlwaysUsageDescription: Bluetooth connects an FM-1 that runs the RemoteFM1 firmware, without a cable.
