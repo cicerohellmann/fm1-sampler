@@ -36,6 +36,8 @@ targets:
       - path: ThirdParty/remotefm1
         buildPhase: none
       - path: FM1Sampler/Assets.xcassets
+      - path: FM1Sampler/PrivacyInfo.xcprivacy
+      # (no tracking, no collected data; the required-reason APIs it declares are listed in the file)
       - path: ../samples
         type: folder
         buildPhase: resources

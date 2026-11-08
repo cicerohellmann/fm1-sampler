@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0BC584442A0C9224CD675904 /* samples in Resources */ = {isa = PBXBuildFile; fileRef = D2266527A30C1EF60191E647 /* samples */; };
+		12341CE12F2C2A6F183B5FD7 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F0CC4D25C4E97F1352DF235A /* PrivacyInfo.xcprivacy */; };
 		1A6469A83CD202727C29F0C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B157018CC9A46A6F0E8CF098 /* UIKit.framework */; };
 		1B42F3D20499A407E72431AE /* rfm_panel.c in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF0E6FFB2B6428FD8AA805 /* rfm_panel.c */; settings = {COMPILER_FLAGS = "-w -O2 -std=c99"; }; };
 		1C62FE866E110EDC4891E363 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = B03D636F6C70EE639F261D79 /* AppDelegate.mm */; };
@@ -129,6 +130,7 @@
 		EAEEC505CBFE9F70DFDDE909 /* Diag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Diag.h; sourceTree = "<group>"; };
 		ED5E205B38C3E39AB358C633 /* kiss_fftr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = kiss_fftr.c; path = ../engine/3rdparty/kissfft/kiss_fftr.c; sourceTree = "<group>"; };
 		EDFD97BDBD07AAC5B3A378D7 /* Diag.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Diag.mm; sourceTree = "<group>"; };
+		F0CC4D25C4E97F1352DF235A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		F10FE2300F413FBE6385C2CD /* Stretch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stretch.h; sourceTree = "<group>"; };
 		F6861400FBCE9A14FCB9CB9F /* fake.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fake.h; sourceTree = "<group>"; };
 		F9A6A055451F1BB0DD2B6874 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -280,6 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				7740FE94C6164B7D1CBB6231 /* Assets.xcassets */,
+				F0CC4D25C4E97F1352DF235A /* PrivacyInfo.xcprivacy */,
 				447F3043B959AD34714350CF /* RemoteFM1 */,
 				260B74BE07E4A1B7644DB13B /* Sources */,
 			);
@@ -487,6 +490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D95F2828530DDCE820CABAD /* Assets.xcassets in Resources */,
+				12341CE12F2C2A6F183B5FD7 /* PrivacyInfo.xcprivacy in Resources */,
 				0BC584442A0C9224CD675904 /* samples in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
