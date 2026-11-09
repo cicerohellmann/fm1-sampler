@@ -1,9 +1,10 @@
-// Drives SamplerApp + SamplerUI with touches and dumps the draw ops of several screens as JSON (render_ui.py draws them).
+// Drives SamplerApp + SamplerUI with touches and dumps the draw ops of several screens as JSON (render_ui.py draws them).  usage: phone_render [out.json] [height]
 #include <Session.h>
 #include <SamplerApp.h>
 #include <SamplerUI.h>
 #include <Common.h>
 #include <cmath>
+#include <cstdlib>
 #include <thread>
 #include <chrono>
 #include <cstdio>
@@ -15,7 +16,7 @@ int main(int argc, char** argv) {
     Session s(sr); s.setDataDir("/tmp/fm1sampler_test"); s.setSampleDir(std::string(getenv("HOME")) + "/fm1-sampler/samples");
     SamplerApp app(s, [](const uint8_t*, size_t) {});
     SamplerUI ui(app);
-    const float W = 860, H = 400;
+    const float W = 860, H = argc > 2 ? (float)atof(argv[2]) : 400;   // optional height in units: 400 like Android, ~460-485 on an iPhone, ~645 on a 4:3 iPad
     ui.setSize(W, H, 0, 0); ui.setLink(true, true);
     std::vector<float> buf(512), in(512, 0.f);
     uint32_t now = 0;

@@ -547,6 +547,9 @@ void SamplerUI::deck(Rect r) {
     // One grid: margin M, three zones (tape and transport on the left, tools in the middle, sample and knobs on the right, timeline below).
     // Every icon sits on a 64 px pitch; the bottom icon of the tools column stands on the transport row.
     const float M = 24, zr = W_ - M, x0 = 440, w0 = zr - x0, mx = 351;
+    // A tall screen (an iPad: 860 x ~600 units) gives the height beyond 500 to the zones above the timeline: the sample view grows, the
+    // rows under it move down and the tools spread out. Android lays out 400 units high and the iPhones up to ~485, so on them g is 0.
+    const float g = std::max(0.f, H_ - 500);
     // header: the track number (tap = next track), the sample name (tap = library), under it the position in the loop
     text(M, 34, 29, kOrange, std::to_string(t + 1), 0, true);
     tap({M - 6, 8, 34, 52}, [this, t] { app_.selectTrack((t + 1) % SamplerApp::kTracks); });
@@ -562,9 +565,9 @@ void SamplerUI::deck(Rect r) {
         const std::string ts = app_.toast();
         text(M, 66, 12, !ts.empty() ? kOrange : kDim, !ts.empty() ? fit(ts, mx - M - 20, 12) : hasLoop || st_.freeRecording ? std::string(cnt) : "No loop", 0, true);
     }
-    cassette({M - 4, 86, 292, 150});
+    cassette({M - 4, 86 + g / 2, 292, 150});
     // transport: play, stop, record / overdub, clear the loop of this track; the active one is orange and underlined
-    const float ty = 248;
+    const float ty = 248 + g;
     for (int i = 0; i < 4; i++) {
         const float cx = M + 20 + i * 64;
         const bool on = i == 0 ? st_.playing : i == 2 ? recOn : false;
@@ -575,21 +578,22 @@ void SamplerUI::deck(Rect r) {
     }
     // tools in the middle: theme, microphone, file from disk, project
     const uint32_t micCol = mic == 1 || mic == 2 ? kOrange : kPaper;
+    const float tp = 64 + g / 3;   // the pitch of the tools: the top one stays by the header, the bottom one on the transport row
     icon(4, mx, 56, kPaper);  tap({mx - 32, 28, 64, 56}, [this] { setLight(!theme::light); });
-    icon(5, mx, 120, micCol); tap({mx - 32, 92, 64, 56}, [this] { app_.micSample(); });
-    icon(6, mx, 184, kPaper); tap({mx - 32, 156, 64, 56}, [this] { app_.requestFile(); });
-    icon(7, mx, 248, projectOpen_ ? kOrange : kPaper); tap({mx - 32, 220, 64, 56}, [this] { projectOpen_ = true; });
+    icon(5, mx, 56 + tp, micCol); tap({mx - 32, 28 + tp, 64, 56}, [this] { app_.micSample(); });
+    icon(6, mx, 56 + 2 * tp, kPaper); tap({mx - 32, 28 + 2 * tp, 64, 56}, [this] { app_.requestFile(); });
+    icon(7, mx, 56 + 3 * tp, projectOpen_ ? kOrange : kPaper); tap({mx - 32, 28 + 3 * tp, 64, 56}, [this] { projectOpen_ = true; });
     // the sample of this track, its page and the four knobs of the page
-    sampleView({x0, 14, w0, 118});
-    const float py = 163;
+    sampleView({x0, 14, w0, 118 + g});
+    const float py = 163 + g;
     text(x0, py, 15, kOrange, SamplerApp::pageName(app_.page()), 0, true);
     for (int i = 0; i < 10; i++) {   // the pages as notches: tap one to go there (the FM-1 buttons do the same)
         Rect nr{zr - (10 - i) * 19.f, py - 14, 19, 28};
         rrect({nr.x + 2, py - 2, 15, 4}, 0, kTabs[i] == app_.page() ? kOrange : kLine);
         tap(nr, [this, i] { app_.gotoPage(kTabs[i]); });
     }
-    for (int i = 0; i < 4; i++) knob(x0 + 49 + i * 100, 220, app_.page(), i);
-    timeline({M, 288, W_ - 2 * M, H_ - 288 - 8});
+    for (int i = 0; i < 4; i++) knob(x0 + 49 + i * 100, 220 + g, app_.page(), i);
+    timeline({M, 288 + g, W_ - 2 * M, H_ - 288 - g - 8});
 }
 
 void SamplerUI::trackList(Rect r) {
