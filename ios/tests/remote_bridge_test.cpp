@@ -1,6 +1,6 @@
 // Host test of the RemoteFM1 bridge: the app (Core: Session + SamplerApp + SamplerUI, as on the phone) drives RemoteFM1's fake unit
 // (ThirdParty/remotefm1/src/fake.c) through RemoteBridge, over a USB link and over a Bluetooth one at the measured rate.
-//   ./run_tests.sh   (builds this with the engine and libremotefm1 and runs it)
+//   ./run_tests.sh [sampleDir]   (builds this with the engine and libremotefm1 and runs it; sampleDir defaults to the repo's samples/)
 #include "Core.h"
 #include "RemoteBridge.h"
 #include <Session.h>

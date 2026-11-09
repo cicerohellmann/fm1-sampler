@@ -10,4 +10,5 @@ for f in $V/src/*.c $E/3rdparty/kissfft/kiss_fft.c $E/3rdparty/kissfft/kiss_fftr
 for f in $E/dsp/*.cpp $E/session/*.cpp $E/app/*.cpp $E/ui/*.cpp $S/RemoteBridge.cpp remote_bridge_test.cpp; do clang++ -std=c++20 -w $FLAGS $INC -c $f -o $B/x_${${f:h}:t}_${${f:t}%.cpp}.o; done
 clang++ -std=c++20 -w $FLAGS $INC -x c++ -c $S/Core.mm -o $B/Core.o
 clang++ $FLAGS $B/*.o -o $B/remote_bridge_test
+(( $# )) || set -- ${R:A}/samples   # the bundled library (the app ships it); a key sounds nothing without a sample
 $B/remote_bridge_test "$@"
