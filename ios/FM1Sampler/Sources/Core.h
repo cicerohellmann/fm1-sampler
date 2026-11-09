@@ -31,6 +31,8 @@ public:
     void uiFrame(float w, float h, uint32_t nowMs, std::vector<UiOp>& out);   // the draw ops of one frame (copied out under the lock)
     void uiTouch(int action /*0 down 1 move 2 up*/, float x, float y, uint32_t nowMs);
     void playNote(int note, bool down);              // as if a key of the FM-1 was pressed (diagnostics script)
+    bool micTakeWaiting();                           // a microphone take is armed / running (SAVE page MIC SAMPLE, or the loop with LOOP SOURCE = MIC)
+    void cancelMicTake();                            // ends a MIC SAMPLE take that is only waiting for sound
     std::string diagLine();                          // one line of engine state for the log (diagnostics)
     void setExtraRows(std::function<std::vector<SamplerUIExtraRow>()> rows);   // rows at the end of the PROJECT menu (SamplerUI::setExtraRows)
 

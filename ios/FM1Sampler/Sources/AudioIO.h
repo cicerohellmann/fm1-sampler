@@ -10,6 +10,7 @@ class Session;
 - (void)start;                                  // session setup, output at once, the microphone as soon as it is allowed
 @property (atomic, readonly) BOOL usbOutput;    // the output route is a USB audio device (the FM-1)
 @property (atomic, readonly) BOOL micRunning;
+@property (nonatomic, readonly) BOOL micDenied;   // the user refused (or later switched off) microphone access
 @property (atomic, readonly) double hardwareRate;
 @property (nonatomic, readonly) uint64_t callbacks;   // render callbacks so far (diagnostics)
 @property (nonatomic, readonly) NSString* inputStats;   // microphone FIFO: failed pulls, underruns, overruns (diagnostics)

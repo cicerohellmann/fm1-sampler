@@ -268,5 +268,16 @@ OSStatus render(void* ref, AudioUnitRenderActionFlags* flags, const AudioTimeSta
     });
 }
 // back in front: an interruption that never reported its end (another app took the audio) leaves the unit stopped
-- (void)foreground:(NSNotification*)n { dispatch_async(_q, ^{ if (!self->_running) { fm1log("foreground: restarting"); [self restart]; } }); }
+// Also the microphone permission is read again: access granted in Settings starts the input now, without a restart of the app.
+- (void)foreground:(NSNotification*)n {
+    dispatch_async(_q, ^{
+        const BOOL granted = AVAudioApplication.sharedInstance.recordPermission == AVAudioApplicationRecordPermissionGranted;
+        if (granted && !self->_wantMic) {
+            self->_wantMic = YES;
+            [self buildUnit];
+            fm1log("microphone permission granted in Settings: input started (mic %d)", self->_micRunning);
+        } else if (!self->_running) { fm1log("foreground: restarting"); [self restart]; }
+    });
+}
+- (BOOL)micDenied { return AVAudioApplication.sharedInstance.recordPermission == AVAudioApplicationRecordPermissionDenied; }
 @end

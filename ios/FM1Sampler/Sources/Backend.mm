@@ -142,6 +142,7 @@ std::vector<Action> parseScript(const char* s) {
     std::vector<Action> script = parseScript(diagValue(@"FM1_SCRIPT").UTF8String);
     size_t next = 0;
     uint32_t lastDiag = 0; uint64_t lastCb = 0;
+    bool micWaiting = false;
     while (true) {
         @autoreleasepool {
             const uint32_t now = self.nowMs;
@@ -161,6 +162,15 @@ std::vector<Action> parseScript(const char* s) {
                 fm1log("mic: %s", _audio.inputStats.UTF8String);
                 lastDiag = now; lastCb = cb;
             }
+            // a microphone take (phone UI or the FM-1: MIC SAMPLE, or the loop with LOOP SOURCE = MIC) starting while access is denied
+            const bool mw = core->micTakeWaiting();
+            if (mw && !micWaiting && _audio.micDenied) {
+                core->cancelMicTake();
+                fm1log("microphone take started while access is denied: asking the user");
+                void (^r)(void) = self.onMicDenied;
+                if (r) dispatch_async(dispatch_get_main_queue(), r);
+            }
+            micWaiting = mw;
             if (_toggleRemote.exchange(false)) {
                 const bool on = !_bridge->enabled();
                 self.remoteFM1Enabled = on;

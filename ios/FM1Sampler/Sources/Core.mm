@@ -50,6 +50,12 @@ void Core::uiFrame(float w, float h, uint32_t now, std::vector<UiOp>& out) {
 void Core::uiTouch(int action, float x, float y, uint32_t now) { std::lock_guard<std::mutex> l(mtx_); ui_->touch(action, x, y, now); }
 void Core::setExtraRows(std::function<std::vector<SamplerUIExtraRow>()> rows) { std::lock_guard<std::mutex> l(mtx_); ui_->setExtraRows(std::move(rows)); }
 void Core::playNote(int note, bool down) { std::lock_guard<std::mutex> l(mtx_); app_->playNote(note, down); }
+bool Core::micTakeWaiting() {
+    std::lock_guard<std::mutex> l(mtx_);
+    // the loop's source is private to the engine; its own status line says when the armed take waits for the microphone
+    return app_->micState() != 0 || (session_->status().freeArmed && app_->loopText() == "WAITING FOR SOUND");
+}
+void Core::cancelMicTake() { std::lock_guard<std::mutex> l(mtx_); if (app_->micState() == 1) app_->micSample(); }
 std::string Core::diagLine() {
     std::lock_guard<std::mutex> l(mtx_);
     const Session::Status st = session_->status();

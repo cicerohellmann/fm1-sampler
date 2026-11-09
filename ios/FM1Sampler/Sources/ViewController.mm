@@ -27,6 +27,7 @@
     __weak ViewController* weak = self;
     b.onFileRequest = ^{ [weak pickFile]; };
     b.onBluetoothRequest = ^{ [weak pairBluetooth]; };
+    b.onMicDenied = ^{ [weak explainMicDenied]; };
     [b start];
     [_view startAnimating];
     // diagnostics: FM1_IMPORT=<a.m4a,b.aif,...> imports Documents/import/<file> one after the other, as if picked (tests the decoder on the phone)
@@ -63,6 +64,18 @@
     UINavigationController* n = [[UINavigationController alloc] initWithRootViewController:c];
     n.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:n animated:YES completion:nil];
+}
+// The microphone was refused (or switched off later): a take cannot hear anything. A plain alert with the way to the Settings page of the app.
+- (void)explainMicDenied {
+    if (self.presentedViewController) return;
+    UIAlertController* a = [UIAlertController alertControllerWithTitle:@"Microphone access is off"
+        message:@"FM1 Sampler needs the microphone to record samples and loops. Turn it on in Settings, then come back."
+        preferredStyle:UIAlertControllerStyleAlert];
+    [a addAction:[UIAlertAction actionWithTitle:@"Not now" style:UIAlertActionStyleCancel handler:nil]];
+    [a addAction:[UIAlertAction actionWithTitle:@"Open Settings" style:UIAlertActionStyleDefault handler:^(UIAlertAction*) {
+        [UIApplication.sharedApplication openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
+    }]];
+    [self presentViewController:a animated:YES completion:nil];
 }
 - (void)closePresented { [self dismissViewControllerAnimated:YES completion:nil]; }
 

@@ -13,5 +13,6 @@ class Core;
 @property (nonatomic, readonly) NSString* dataDir;   // Documents: saved samples (sample_*.wav), the theme; visible in the Files app
 @property (atomic, copy) void (^onFileRequest)(void);
 @property (atomic, copy) void (^onBluetoothRequest)(void);   // the UI asked to pair a Bluetooth FM-1 (RemoteFM1)
+@property (atomic, copy) void (^onMicDenied)(void);          // a microphone take was started while access is denied: tell the user (main queue)
 @property (nonatomic) BOOL remoteFM1Enabled;                // the RemoteFM1 bridge (optional; off by default)
 @end
