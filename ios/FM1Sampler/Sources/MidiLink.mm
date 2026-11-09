@@ -66,12 +66,14 @@ int umpWords(uint32_t w) { static const int k[16] = {1, 1, 1, 2, 2, 4, 1, 1, 2, 
 
 - (void)start {
     __weak MidiLink* weak = self;
+#if FM1_TEST_TOOLS
     if (diagValue(@"FM1_NETMIDI")) {   // diagnostics: open the network MIDI session so the Mac can stand in for the FM-1
         MIDINetworkSession* ns = MIDINetworkSession.defaultSession;
         ns.enabled = YES;
         ns.connectionPolicy = MIDINetworkConnectionPolicy_Anyone;
         fm1log("network MIDI session '%s' on port %lu", ns.networkName.UTF8String, (unsigned long)ns.networkPort);
     }
+#endif
     OSStatus r = MIDIClientCreateWithBlock(CFSTR("FM1 Sampler"), &_client, ^(const MIDINotification* m) {
         if (m->messageID == kMIDIMsgSetupChanged || m->messageID == kMIDIMsgObjectAdded || m->messageID == kMIDIMsgObjectRemoved || m->messageID == kMIDIMsgPropertyChanged)
             dispatch_async(dispatch_get_main_queue(), ^{ [weak rescan]; });

@@ -25,6 +25,10 @@ settings:
       - $(SRCROOT)/ThirdParty/remotefm1/include
       - $(SRCROOT)/ThirdParty/remotefm1/proto
       - $(SRCROOT)/ThirdParty/remotefm1/firmware/src
+  configs:
+    # the test tools (Documents/diag.env, FM1_* switches, script runner, network MIDI session, fake unit) are compiled in only here
+    Debug:
+      GCC_PREPROCESSOR_DEFINITIONS: ["$(inherited)", "FM1_TEST_TOOLS=1"]
 targets:
   FM1Sampler:
     type: application

@@ -5,6 +5,7 @@
 //   FM1_UNIT_SCRIPT=...  ms after the session started, ';' separated: "<ms> btn <0..13>", "<ms> key <0..26> <hold ms>",
 //                        "<ms> enc <0..6> <detents>", "<ms> snap <name>" (this screen as Documents/diag/unit_<name>.png)
 #import "FakeUnitViewController.h"
+#if FM1_TEST_TOOLS
 #import "Diag.h"
 #import <CoreAudioKit/CoreAudioKit.h>
 #import <CoreMIDI/CoreMIDI.h>
@@ -275,3 +276,4 @@ NSString* nameOf(MIDIEndpointRef e) {
     fm1log("fake unit: snap %s", name.UTF8String);
 }
 @end
+#endif   // FM1_TEST_TOOLS

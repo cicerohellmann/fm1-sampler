@@ -57,7 +57,8 @@ Signing: automatic, team `E9C9AGS9K6`, bundle id `ca.dallasgroot.fm1sampler` (ch
 `DEVICE=<CoreDevice id>` picks a phone (`xcrun devicectl list devices`). The phone must be unlocked with its screen on for a remote launch.
 
 ## Testing on the phone without the FM-1
-Off unless switched on, through the launch environment or `Documents/diag.env` (KEY=VALUE lines, put there with
+**Debug builds only** (`FM1_TEST_TOOLS`, set in `project.yml`): a Release build ignores `diag.env` and every `FM1_*` switch, and the network MIDI session,
+the script runner and the fake unit are not compiled in. Off unless switched on, through the launch environment or `Documents/diag.env` (KEY=VALUE lines, put there with
 `xcrun devicectl device copy to --domain-type appDataContainer --domain-identifier ca.dallasgroot.fm1sampler`):
 
 | Switch | Does |

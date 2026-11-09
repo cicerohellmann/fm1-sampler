@@ -9,6 +9,7 @@ static NSDictionary<NSString*, NSString*>* switches() {
     static NSDictionary* d; static dispatch_once_t once;
     dispatch_once(&once, ^{
         NSMutableDictionary* m = [NSMutableDictionary dictionary];
+#if FM1_TEST_TOOLS
         NSString* docs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
         NSString* file = [NSString stringWithContentsOfFile:[docs stringByAppendingPathComponent:@"diag.env"] encoding:NSUTF8StringEncoding error:nil];
         for (NSString* line in [file componentsSeparatedByCharactersInSet:NSCharacterSet.newlineCharacterSet]) {
@@ -17,6 +18,11 @@ static NSDictionary<NSString*, NSString*>* switches() {
             m[[line substringToIndex:eq.location]] = [line substringFromIndex:eq.location + 1];
         }
         for (NSString* k in NSProcessInfo.processInfo.environment) if ([k hasPrefix:@"FM1_"]) m[k] = NSProcessInfo.processInfo.environment[k];
+#else
+        // Release: no switch is ever honoured (Documents is visible in the Files app, so diag.env must not be able to turn test hooks on)
+        NSString* docs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+        if ([NSFileManager.defaultManager fileExistsAtPath:[docs stringByAppendingPathComponent:@"diag.env"]]) os_log(OS_LOG_DEFAULT, "diag.env ignored: test tools are not part of this build");
+#endif
         d = m;
     });
     return d;

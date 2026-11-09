@@ -18,8 +18,11 @@
 @implementation SceneDelegate
 - (void)scene:(UIScene*)scene willConnectToSession:(UISceneSession*)session options:(UISceneConnectionOptions*)opts {
     self.window = [[UIWindow alloc] initWithWindowScene:(UIWindowScene*)scene];
-    // FM1_FAKE_UNIT=1 (diagnostics): this phone plays an FM-1 running RemoteFM1 over Bluetooth instead of being the sampler
-    self.window.rootViewController = diagValue(@"FM1_FAKE_UNIT") ? (UIViewController*)[[FakeUnitViewController alloc] init] : [[ViewController alloc] init];
+    self.window.rootViewController = [[ViewController alloc] init];
+#if FM1_TEST_TOOLS
+    // FM1_FAKE_UNIT=1 (diagnostics, Debug only): this phone plays an FM-1 running RemoteFM1 over Bluetooth instead of being the sampler
+    if (diagValue(@"FM1_FAKE_UNIT")) self.window.rootViewController = [[FakeUnitViewController alloc] init];
+#endif
     [self.window makeKeyAndVisible];
 }
 @end
