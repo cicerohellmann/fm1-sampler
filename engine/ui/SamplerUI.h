@@ -16,8 +16,6 @@ public:
     void frame(uint32_t nowMs);
     void openProject(bool on) { projectOpen_ = on; }
     void setEditor(bool on) { editor_ = on; }   // false: the cassette deck, true: sample / page editor
-    // Rows a platform adds at the end of the PROJECT menu (iOS: the RemoteFM1 / Bluetooth options). Asked every frame the menu is
-    // open; a row's tap runs on the UI's thread, inside touch(): it must not call back into the app.
     struct ExtraRow { std::string label, hint; bool enabled = true, hot = false; std::function<void()> tap; };
     void setExtraRows(std::function<std::vector<ExtraRow>()> rows) { extraRows_ = std::move(rows); }
     const std::vector<UiOp>& ops() const { return ops_; }
@@ -41,12 +39,14 @@ private:
 
     void topBar(Rect r);
     void deck(Rect r);
+    void deckPortrait(Rect r);
+    void testKeyboard(Rect r);
     void icon(int kind, float cx, float cy, uint32_t c);
     void setLight(bool on);
     void cassette(Rect r);
     void sampleView(Rect r);
     void pageView(Rect r);   // the schematic of the active page in the place of the sample
-    void knob(float cx, float cy, SamplerApp::Page page, int idx, bool unused = false);
+    void knob(float cx, float cy, SamplerApp::Page page, int idx, bool unused = false, float hitWidth = 92);
     void timeline(Rect r);
     void key(Rect r, const std::string& label, int icon, bool on, std::function<void()> f, bool hot);
     float loopPos() const;

@@ -314,19 +314,103 @@ SamplerApp::Knobs SamplerApp::knobs(Page p) {
 
 // ---- looper, recorder ----
 void SamplerApp::endRecording() {
-    if (st_.freeArmed || st_.freeRecording) { s_.freeRecord(track_, false); say(st_.freeArmed && !st_.freeRecording ? "CANCELLED" : "LOOP SET"); }
+    if (st_.freeArmed || st_.freeRecording) {
+        const bool cancelled = st_.freeArmed && !st_.freeRecording;
+        const bool tooShort = st_.freeRecording && st_.freeSeconds < 0.25f;
+        s_.freeRecord(track_, false);
+        say(cancelled ? "CANCELLED" : tooShort ? "TOO SHORT" : "LOOP SET");
+    }
     for (int t = 0; t < kTracks; t++) if (st_.track_clip_rec[t]) s_.clipRecord(t, false);
 }
 void SamplerApp::transportPlay() {   // while recording the first press ends the recording (the loop plays on), the next one stops the tape
     if (recordingNow()) { endRecording(); return; }
     s_.play(!st_.playing);
 }
+bool SamplerApp::screenPlaybackActive(const Session::Status& status) const {
+    return loopExists() || recordingNow() ? status.playing : status.samplePlaying[track_];
+}
+
+void SamplerApp::stopScreenPlayback() {
+    if (recordingNow()) endRecording();
+    previewAfterLoad_ = false;
+    previewNote_ = -1;
+    transportSampleTrack_ = -1;
+    s_.stopAndRewind();
+}
+
+void SamplerApp::toggleScreenPlayback() {
+    const auto status = s_.status();
+    if (recordingNow()) {
+        endRecording();
+        return;
+    }
+    if (loopExists()) {
+        if (transportSampleTrack_ >= 0) {
+            s_.clearSamplePlayback(transportSampleTrack_);
+            transportSampleTrack_ = -1;
+        }
+        previewAfterLoad_ = false;
+        if (previewNote_ >= 0) {
+            s_.stopSamplePlayback(previewTrack_);
+            previewNote_ = -1;
+        }
+        s_.play(!status.playing);
+        return;
+    }
+    if (hasSample(track_)) transportSet(!status.samplePlaying[track_]);
+}
+
+void SamplerApp::seekSamplePlayback(float position) {
+    if (loopExists() || recordingNow() || mic_ != 0 || !hasSample(track_)) return;
+    if (transportSampleTrack_ >= 0 && transportSampleTrack_ != track_)
+        s_.clearSamplePlayback(transportSampleTrack_);
+    if (previewTrack_ == track_ && previewNote_ >= 0) {
+        s_.stopSamplePlayback(track_);
+        previewNote_ = -1;
+    }
+    previewAfterLoad_ = false;
+    transportSampleTrack_ = track_;
+    s_.seekSamplePlayback(track_, position);
+}
+
 void SamplerApp::transportSet(bool play) {
-    if (recordingNow()) { if (!play) endRecording(); return; }
+    if (recordingNow()) {
+        if (!play) {
+            endRecording();
+            // STOP should both finalize an active take and stop the transport.
+            s_.play(false);
+        }
+        return;
+    }
+    if (!play && transportSampleTrack_ >= 0) {
+        s_.setSamplePlayback(transportSampleTrack_, false);
+    }
+    if (play && !loopExists() && hasSample(track_)) {
+        if (transportSampleTrack_ >= 0 && transportSampleTrack_ != track_)
+            s_.clearSamplePlayback(transportSampleTrack_);
+        if (previewTrack_ == track_ && previewNote_ >= 0) {
+            s_.stopSamplePlayback(track_);
+            previewNote_ = -1;
+        }
+        previewAfterLoad_ = false;
+        transportSampleTrack_ = track_;
+        s_.setSamplePlayback(track_, true);
+        return;
+    }
+    if (!play && !loopExists() && previewNote_ >= 0) {
+        s_.stopSamplePlayback(previewTrack_);
+        previewNote_ = -1;
+    }
     s_.play(play);
 }
 void SamplerApp::loopRecord() {
-    if (st_.freeArmed || st_.freeRecording) { s_.freeRecord(track_, false); say("LOOP SET"); return; }
+    if (st_.freeArmed || st_.freeRecording) {
+        const bool cancelled = st_.freeArmed && !st_.freeRecording;
+        const bool tooShort = st_.freeRecording && st_.freeSeconds < 0.25f;
+        s_.freeRecord(track_, false);
+        say(cancelled ? "CANCELLED" : tooShort ? "TOO SHORT" : "LOOP SET");
+        return;
+    }
     if (!loopAny_ && !st_.track_clip_rec[track_]) {   // a clean looper: arm the first take, it starts with the first note (or sound) and sets the loop length
         s_.freeRecord(track_, true);
         say(loopSrc_ ? "PLAY A KEY TO START" : "WAITING FOR SOUND");
@@ -416,8 +500,19 @@ void SamplerApp::onMidi(const uint8_t* m, size_t n) {
         else if (a == 39) s_.setMasterVolume(((knobMsb_ << 3) | (b >> 4)) / 1023.f * 1.2f);
     }
 }
+void SamplerApp::resetSurfaceLink() {
+    pending_.clear();
+    pendingBytes_ = 0;
+    haveDropBase_ = false;
+    linkSeen_ = false;
+    needClear_ = true;
+    fwDirty_ = true;
+    lastLed_ = ~0ull;
+    held_ = 0;
+}
+
 void SamplerApp::onSysex(const uint8_t* m, size_t n) {
-    if (n < 8 || m[1] != 0x7d || m[2] != 'D' || m[3] != 'A' || m[4] != 'W') return;
+    if (n < 8 || m[0] != 0xf0 || m[n - 1] != 0xf7 || m[1] != 0x7d || m[2] != 'D' || m[3] != 'A' || m[4] != 'W') return;
     linkSeen_ = true;
     if (m[6] == 0x41 && n >= 12) {   // the firmware's own SEL screen / OCT buttons: its scale index is the tonality unless it is the OFF we keep it on
         if ((m[7] & 7) != 7) { scale_.scale = m[7] & 7; fwDirty_ = true; }
@@ -450,7 +545,7 @@ void SamplerApp::button(int b, bool down) {
     case EDIT: page_ = P_MIX; break;
     case GLO: page_ = P_KEY; break;
     case SEL: page_ = P_LEN; break;
-    case PLAY: transportPlay(); break;
+    case PLAY: toggleScreenPlayback(); break;
     case REC: loopRecord(); break;
     default: break;
     }

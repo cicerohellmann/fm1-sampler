@@ -18,6 +18,8 @@ public:
 
     struct Status {
         bool playing;
+        bool samplePlaying[kTracks];
+        float samplePlaybackPosition[kTracks];
         double pos;              // samples inside the loop
         double loopSamples;      // 0 = no loop yet
         float bpm;
@@ -48,8 +50,13 @@ public:
 
     // ---- transport and notes ----
     void play(bool on);
+    void stopAndRewind();
     void noteOn(int track, int note, int vel);
     void noteOff(int track, int note);
+    void stopSamplePlayback(int track);
+    void setSamplePlayback(int track, bool play);
+    void clearSamplePlayback(int track);
+    void seekSamplePlayback(int track, float position);
 
     // ---- sampler (per track) ----
     void loadSamplePath(const std::string& path, bool kit, int track);          // worker thread builds it, then it replaces the track's sampler

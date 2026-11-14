@@ -101,14 +101,69 @@ void Sampler::noteOn(int note, int vel) {
 }
 void Sampler::noteOff(int note) {
     if (mode_ == ONESHOT) return;   // always plays out
-    for (auto& v : voices_) if (v.on && v.gate && v.note == note) { v.gate = false; v.env.gateOff(); }
+    for (auto& v : voices_) if (v.on && v.born != transportVoice_ && v.gate && v.note == note) { v.gate = false; v.env.gateOff(); }
 }
-void Sampler::allOff() { for (auto& v : voices_) v = Voice(); }
+void Sampler::allOff() {
+    for (auto& v : voices_) v = Voice();
+    transportVoice_ = 0;
+    transportPaused_ = false;
+}
+bool Sampler::transportPlaybackActive() const {
+    if (transportPaused_) return false;
+    for (const auto& voice : voices_) {
+        if (voice.on && voice.born == transportVoice_) return true;
+    }
+    return false;
+}
+
+void Sampler::clearTransportPlayback() {
+    for (auto& v : voices_) if (v.on && v.born == transportVoice_) v = Voice();
+    transportVoice_ = 0;
+    transportPaused_ = false;
+}
+void Sampler::seekTransportPlayback(float position) {
+    if (!orig_) return;
+    auto voice = std::find_if(std::begin(voices_), std::end(voices_), [this](const Voice& v) {
+        return v.on && v.born == transportVoice_;
+    });
+    if (voice == std::end(voices_)) {
+        setTransportPlayback(true);
+        transportPaused_ = true;
+        voice = std::find_if(std::begin(voices_), std::end(voices_), [this](const Voice& v) {
+            return v.on && v.born == transportVoice_;
+        });
+        if (voice == std::end(voices_)) return;
+    }
+    Voice& v = *voice;
+    double fraction = clampf(position, 0.f, 1.f);
+    if (v.buf == proc_.get()) fraction = (fraction - procA_) / (procB_ - procA_);
+    v.pos = std::clamp(fraction * v.buf->frames, v.ws, std::max(v.ws, v.we - 1));
+    if (mode_ == GRAIN) {
+        for (auto& grain : v.grain) grain.on = false;
+        v.spawn = 0;
+    }
+    if (mode_ == PAUL && v.paulIdx >= 0) {
+        paul_[(size_t)v.paulIdx]->start(v.buf->d.data(), v.buf->frames, v.pos, v.we, paulStretch_);
+    }
+}
+
+void Sampler::setTransportPlayback(bool play) {
+    for (auto& v : voices_) {
+        if (v.on && v.born == transportVoice_) {
+            transportPaused_ = !play;
+            return;
+        }
+    }
+    if (!play || !orig_) return;
+    noteOn(60, 100);
+    transportVoice_ = bornCounter_;
+    transportPaused_ = false;
+}
 bool Sampler::hasVoices() const { for (auto& v : voices_) if (v.on) return true; return false; }
 
 void Sampler::render(float* out, int n) {
     if (!orig_) return;
-    for (auto& v : voices_) if (v.on) renderVoice(v, out, n);
+    for (auto& v : voices_) if (v.on && !(transportPaused_ && v.born == transportVoice_)) renderVoice(v, out, n);
 }
 
 void Sampler::renderVoice(Voice& v, float* out, int n) {
@@ -185,10 +240,17 @@ float Sampler::orginalPosOf(const Voice& v) const {
     return clampf((float)(pos / orig_->frames), 0.f, 1.f);
 }
 
+float Sampler::transportPlaybackPosition() const {
+    for (const auto& voice : voices_) {
+        if (voice.on && voice.born == transportVoice_) return orginalPosOf(voice);
+    }
+    return -1.f;
+}
+
 int Sampler::voicePositions(float* out, int maxN, float* level) const {
     int n = 0;
     for (auto& v : voices_) {
-        if (!v.on || n >= maxN) continue;
+        if (!v.on || v.born == transportVoice_ || n >= maxN) continue;
         if (mode_ == GRAIN) {
             for (auto& g : v.grain) if (g.on && n < maxN) {
                 Voice tmp = v; tmp.pos = g.pos; if (level) level[n] = v.env.level * std::sin(3.14159265f * std::min(1.f, (float)g.age / (float)std::max(1, g.len))); out[n++] = orginalPosOf(tmp);
