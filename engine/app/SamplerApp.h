@@ -37,6 +37,7 @@ public:
     SamplerApp(Session& s, Send send);
 
     void onMidi(const uint8_t* msg, size_t n);
+    void resetSurfaceLink();
     void onSysex(const uint8_t* msg, size_t n);
     void tick(uint32_t nowMs);                    // ~30 Hz
 
@@ -61,6 +62,10 @@ public:
     void requestFile() { wantFile_ = true; }
     // looper and recorder
     void transportPlay();
+    void toggleScreenPlayback();
+    void stopScreenPlayback();
+    bool screenPlaybackActive(const Session::Status& status) const;
+    void seekSamplePlayback(float position);
     void transportSet(bool play);                 // phone PLAY / STOP keys
     bool recordingNow() const { bool r = st_.freeRecording || st_.freeArmed; for (int t = 0; t < kTracks; t++) r |= st_.track_clip_rec[t]; return r; }
     void endRecording();                          // PLAY / STOP while recording: the take ends, the loop keeps playing
@@ -148,6 +153,7 @@ private:
     std::vector<Entry> lib_;
     int libCursor_ = 0, loadedCursor_ = -1;
     uint32_t auditionAt_ = 0, previewOffAt_ = 0; int previewNote_ = -1, previewTrack_ = -1;
+    int transportSampleTrack_ = -1;
     bool wantFile_ = false, previewAfterLoad_ = false;
     // loop / recorder
     Session::Status st_{};

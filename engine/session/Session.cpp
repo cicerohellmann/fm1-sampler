@@ -94,6 +94,8 @@ struct Session::Impl {
     std::atomic<int> a_bars{4}, a_sampleState{0}, a_sampleTrack{0}, a_sampleVersion{0}, a_sampleFails{0};
     std::atomic<int32_t> a_loop{0};
     std::atomic<float> a_clipPos{0.f}, a_lfo[kTracks], a_scGain[kTracks], a_scLevel[kTracks];
+    std::atomic<float> a_samplePlaybackPosition[kTracks];
+    std::atomic<bool> a_samplePlaying[kTracks]{};
     std::atomic<int> a_voiceN[kTracks]; std::atomic<float> a_voicePos[kTracks][kVoiceMax], a_voiceLvl[kTracks][kVoiceMax];
 
     std::vector<float> bus, tmp, sendBus[2], wet;
@@ -107,6 +109,7 @@ struct Session::Impl {
         for (auto& a : a_scGain) a = 1.f;
         for (auto& a : a_scLevel) a = 0.f;
         for (auto& a : a_voiceN) a = 0;
+        for (auto& position : a_samplePlaybackPosition) position = -1.f;
         worker = std::thread([this] {
             for (;;) {
                 std::function<void()> j;
@@ -328,7 +331,7 @@ struct Session::Impl {
         std::vector<Arp::Ev> evs;
         for (int ti = 0; ti < kTracks; ti++) {
             Track& t = *tracks[(size_t)ti];
-            if (!t.sampler && !t.clipHas && !t.clipRec && t.pending.empty()) { t.peak.store(t.peak.load() * 0.9f); t.scEnv *= 0.8f; t.scGain = 1.f; a_voiceN[ti].store(0); continue; }
+            if (!t.sampler && !t.clipHas && !t.clipRec && t.pending.empty()) { t.peak.store(t.peak.load() * 0.9f); t.scEnv *= 0.8f; t.scGain = 1.f; a_voiceN[ti].store(0); a_samplePlaying[ti].store(false); a_samplePlaybackPosition[ti].store(-1.f); continue; }
             std::fill(bus.begin(), bus.begin() + n * 2, 0.f);
             // LFO: one value per block (about 170 Hz)
             float lfoGain = 1.f, lfoPan = 0.f, bend = 0.f; bool filterOn = false;
@@ -364,6 +367,8 @@ struct Session::Impl {
                 for (int i = 0; i < vn; i++) { a_voicePos[ti][i].store(vp[i]); a_voiceLvl[ti][i].store(vl[i]); }
                 a_voiceN[ti].store(vn);
             } else a_voiceN[ti].store(0);
+            a_samplePlaying[ti].store(t.sampler && t.sampler->transportPlaybackActive());
+            a_samplePlaybackPosition[ti].store(t.sampler ? t.sampler->transportPlaybackPosition() : -1.f);
             if (t.filtOn) for (int i = 0; i < n; i++) { bus[2 * i] = t.filt.process(0, bus[2 * i]); bus[2 * i + 1] = t.filt.process(1, bus[2 * i + 1]); }
             // the sound of the track itself (before the loop is added), for the free take
             if (freeRec && loopSrc == 1 && ti == freeTrack) for (int i = 0; i < n * 2; i++) freeBuf[freeBase + (size_t)i] += bus[(size_t)i];
@@ -496,8 +501,48 @@ void Session::play(bool on) {
         }
     });
 }
+void Session::stopAndRewind() {
+    d->post([this] {
+        if (d->freeRec || d->freeArmed) d->freeStop();
+        d->playing = d->stopping = d->scrubActive = d->scrubTail = false;
+        d->pos = d->tapePos = d->scrubPos = d->scrubV = 0;
+        d->rate = 1.0;
+        for (auto& track : d->tracks) d->releaseAll(*track);
+    });
+}
 void Session::noteOn(int t, int note, int vel) { if (t >= 0 && t < kTracks) d->post([=] { d->liveNote(t, note, std::max(1, vel)); }); }
 void Session::noteOff(int t, int note) { if (t >= 0 && t < kTracks) d->post([=] { d->liveNote(t, note, 0); }); }
+
+void Session::stopSamplePlayback(int track) {
+    if (track < 0 || track >= kTracks) return;
+    d->post([this, track] {
+        auto& sampler = d->tracks[(size_t)track]->sampler;
+        if (sampler) sampler->allOff();
+    });
+}
+
+void Session::setSamplePlayback(int track, bool play) {
+    if (track < 0 || track >= kTracks) return;
+    d->post([this, track, play] {
+        auto& sampler = d->tracks[(size_t)track]->sampler;
+        if (sampler) sampler->setTransportPlayback(play);
+    });
+}
+void Session::seekSamplePlayback(int track, float position) {
+    if (track < 0 || track >= kTracks) return;
+    d->post([this, track, position] {
+        auto& sampler = d->tracks[(size_t)track]->sampler;
+        if (sampler) sampler->seekTransportPlayback(position);
+    });
+}
+
+void Session::clearSamplePlayback(int track) {
+    if (track < 0 || track >= kTracks) return;
+    d->post([this, track] {
+        auto& sampler = d->tracks[(size_t)track]->sampler;
+        if (sampler) sampler->clearTransportPlayback();
+    });
+}
 
 // ---- sampler ----
 void Session::loadSamplePath(const std::string& path, bool kit, int track) {
@@ -709,6 +754,8 @@ Session::Status Session::status() const {
         s.track_peak[i] = d->tracks[(size_t)i]->peak;
         s.track_has_clip[i] = cm >> i & 1; s.track_clip_rec[i] = rm >> i & 1;
         s.clipPos[i] = d->a_clipPos; s.lfoValue[i] = d->a_lfo[i]; s.scGain[i] = d->a_scGain[i]; s.scLevel[i] = d->a_scLevel[i];
+        s.samplePlaying[i] = d->a_samplePlaying[i].load();
+        s.samplePlaybackPosition[i] = d->a_samplePlaybackPosition[i].load();
         s.voiceN[i] = std::min(kVoiceMax, d->a_voiceN[i].load()); for (int j = 0; j < s.voiceN[i]; j++) { s.voicePos[i][j] = d->a_voicePos[i][j]; s.voiceLvl[i][j] = d->a_voiceLvl[i][j]; }
     }
     s.freeRecording = d->a_free; s.freeArmed = d->a_freeArmed; s.freeSeconds = d->a_freeSec;

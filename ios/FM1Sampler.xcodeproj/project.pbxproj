@@ -7,135 +7,81 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0BC584442A0C9224CD675904 /* samples in Resources */ = {isa = PBXBuildFile; fileRef = D2266527A30C1EF60191E647 /* samples */; };
+		076E8DA37AE6B5F765063348 /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = AC8515FD4202C5FC405E5796 /* kiss_fftr.c */; };
 		12341CE12F2C2A6F183B5FD7 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F0CC4D25C4E97F1352DF235A /* PrivacyInfo.xcprivacy */; };
-		1A6469A83CD202727C29F0C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B157018CC9A46A6F0E8CF098 /* UIKit.framework */; };
-		1B42F3D20499A407E72431AE /* rfm_panel.c in Sources */ = {isa = PBXBuildFile; fileRef = 7AAF0E6FFB2B6428FD8AA805 /* rfm_panel.c */; settings = {COMPILER_FLAGS = "-w -O2 -std=c99"; }; };
-		1C62FE866E110EDC4891E363 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = B03D636F6C70EE639F261D79 /* AppDelegate.mm */; };
 		1D95F2828530DDCE820CABAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7740FE94C6164B7D1CBB6231 /* Assets.xcassets */; };
-		23A72BDD91C253F32F006156 /* FakeUnitViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9D63513AB8F58D931628C850 /* FakeUnitViewController.mm */; };
-		2643AF7AC9CE71EBE36DA24D /* Backend.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2406F0A89CB0AFDBB2DC148F /* Backend.mm */; };
-		3726754F6845CF4F5D0491F5 /* SamplerUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4702B405562025F53DB582BB /* SamplerUI.cpp */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
-		42FFA81908B3F9E3D39FC70E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02BCD93EFCBC2247C345FD5A /* Foundation.framework */; };
+		2807BB9309FDE9A93FE09DC9 /* AudioImport.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3E8E3B0D290C4BC7DCB81E14 /* AudioImport.mm */; };
+		2873B57CA8995D637F87F7EC /* samples in Resources */ = {isa = PBXBuildFile; fileRef = 52418F27477D9A2906EE4D18 /* samples */; };
+		2D9EDD726A2B264038513F02 /* SamplerApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CF3FB1E069E355E51BD49D /* SamplerApp.cpp */; };
+		2E494810BBAF9398809B7770 /* SamplerSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC33A2D0992A944350BA5E5 /* SamplerSurface.swift */; };
+		40F312A925C96B5CEAB67C0E /* AudioIO.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5C5B55E8B1B0AC86933F1B47 /* AudioIO.mm */; };
+		46ACB040DD9E27B0FD3439E8 /* AVFAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14042C1851FEC55E21B08ABC /* AVFAudio.framework */; };
 		4F48F667D558283AC2C4EE9D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F87430B55AECB70C64515CA /* AudioToolbox.framework */; };
-		509C07A80508314503E9F861 /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C0C08A720BB34D3149F694B /* CoreAudioKit.framework */; };
-		6459967F540D7C4E49228709 /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 6474FB66BA0D6C05F9367F65 /* kiss_fft.c */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
-		6C6A702BBCC2773ECC5DEAFB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35D15A5DC0CE8DC9CE71563F /* QuartzCore.framework */; };
+		51C8C60228D3F164CAEFC0E9 /* EngineBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = A3426A0812CBF45C88F0EAE4 /* EngineBridge.mm */; };
+		6BE52DE66E9F8C0B2DA95C5E /* SamplerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CCA4592C6FE009AD1C4BCB /* SamplerModel.swift */; };
 		6E2B9A328C49C8B7A40C96EA /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AA36EA0A8F86B845D291E41 /* UniformTypeIdentifiers.framework */; };
-		75C2687EB194A40FDDB40BB2 /* Stretch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74ABAF62CE96F91C3BE42FD7 /* Stretch.cpp */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
-		76268207D1E9A65206DD137F /* AudioIO.mm in Sources */ = {isa = PBXBuildFile; fileRef = CC439BA27E97219563F0F07A /* AudioIO.mm */; };
-		78779594D2EFA7C2BCEA8F79 /* SamplerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4D95FD68FD7373FD7083E502 /* SamplerView.mm */; };
-		80563C0F66C4C77D8E833C43 /* MidiLink.mm in Sources */ = {isa = PBXBuildFile; fileRef = 713CFCE6D269F03F4DC2B07E /* MidiLink.mm */; };
+		7578AA9BBE7D3FC70859164E /* DrawOp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65315B54EB3EBD51E1DF5A1D /* DrawOp.swift */; };
+		811C4B5F44E712B0573616D1 /* Paul.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23B8138A7DB6EF8AEBE2E11F /* Paul.cpp */; };
 		82266F1E10F16B71E2157210 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83404696AB0C1E8CBC195732 /* CoreMIDI.framework */; };
-		87E8308ED996410DA0630CB7 /* AudioImport.mm in Sources */ = {isa = PBXBuildFile; fileRef = B302D2DB26BBFCB9CCBB1309 /* AudioImport.mm */; };
-		93776545D4E083FF968E491B /* RemoteBridge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B76A62B4BC49BD60E655D767 /* RemoteBridge.cpp */; };
-		9CAC50572FE44499242DDC2A /* rfm_session.c in Sources */ = {isa = PBXBuildFile; fileRef = 5FC417331F356DFB8F0D77BB /* rfm_session.c */; settings = {COMPILER_FLAGS = "-w -O2 -std=c99"; }; };
-		A091C4D34AA816E5143E1A66 /* SamplerApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 258DB2B9FC5C15D14237B3DF /* SamplerApp.cpp */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
-		A27A155BDCDC2EFAA00F32E3 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 248AB9104AB111B3A43E991C /* CoreText.framework */; };
-		ABDC5B8E4EA4253DF9E83199 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A6A055451F1BB0DD2B6874 /* AVFoundation.framework */; };
-		AC264D27033D2BED424DF091 /* Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA5B0D04DAD49AA0D1ED0347 /* Session.cpp */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
-		AFA213E3836EFCC5CDBC3D66 /* rfm_screen.c in Sources */ = {isa = PBXBuildFile; fileRef = 321C4B393D9013947C245C28 /* rfm_screen.c */; settings = {COMPILER_FLAGS = "-w -O2 -std=c99"; }; };
-		B3C79ED62C825A6B909FB5B0 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3855D0AEE41D3BEA96923C2A /* ViewController.mm */; };
-		C19B0A01C21D2E89BF67DF1E /* rfm_tiles_ref.c in Sources */ = {isa = PBXBuildFile; fileRef = 01B01B2D937D32BB6DBB2644 /* rfm_tiles_ref.c */; settings = {COMPILER_FLAGS = "-w -O2 -std=c99"; }; };
-		C3C663341F6B0E41FC7C165D /* Paul.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2ECE123D4E5B2D28DC8F130C /* Paul.cpp */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
-		CBB58329A4720CDF28952C99 /* Wav.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C66B6B4FA244D0E68A034A14 /* Wav.cpp */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
-		CCFC356A3A55DB14320A9DF8 /* rfm_codec.c in Sources */ = {isa = PBXBuildFile; fileRef = 094D2EA0737C9B33E6026033 /* rfm_codec.c */; settings = {COMPILER_FLAGS = "-w -O2 -std=c99"; }; };
-		D22444ADDE73D9F0D0D7D950 /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = ED5E205B38C3E39AB358C633 /* kiss_fftr.c */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
-		D742A77D4DC660CA1E5B6958 /* Core.mm in Sources */ = {isa = PBXBuildFile; fileRef = E563A15A07BA5560822503DC /* Core.mm */; };
-		E071FCDCDF860BF41F2DE45D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A81CBDCDED07E98BB42025 /* CoreGraphics.framework */; };
-		E981E345AA11838619BEF6FA /* Diag.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDFD97BDBD07AAC5B3A378D7 /* Diag.mm */; };
-		E99BEC0921977648A2BE6D9D /* rfm_fake.c in Sources */ = {isa = PBXBuildFile; fileRef = A644B0C8ED57D7F6EFD83650 /* rfm_fake.c */; settings = {COMPILER_FLAGS = "-w -O2 -std=c99"; }; };
-		EDA107825606D8168CCAD77C /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 499FDC490731DCC311190458 /* main.mm */; };
-		F90CD6EAF5373C02F281151C /* Sampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5FF1276D9CD551F4B5F07F1A /* Sampler.cpp */; settings = {COMPILER_FLAGS = "-w -O2"; }; };
+		853F317D56C78EB2AC5F0BB3 /* Wav.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C89CD47B72DB6A8D71526B20 /* Wav.cpp */; };
+		89081E9058E516630FFD8F0B /* FM1SamplerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87B0092850177FE4B183DB5 /* FM1SamplerApp.swift */; };
+		971BF729DE24A7BF6E451A40 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52815E83F182BDF7987EDA73 /* ContentView.swift */; };
+		DC8CC1EABEDD12D9A47F6A9D /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 6FE75201BC2300704B76B72E /* kiss_fft.c */; };
+		E8531FFB2EED70A0E4D66755 /* Sampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FB642FA35FC8061E100CE463 /* Sampler.cpp */; };
+		EB94847489E4C49550A6332D /* Session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA61D430569D368E5B529199 /* Session.cpp */; };
+		F37B34CF4C74BDBAC260DE24 /* SamplerUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E8F0DA7D546D9DE443FCA79C /* SamplerUI.cpp */; };
+		FCA676546264B0379A2A9420 /* Stretch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD98A356F8E8B9B82B5E4EFE /* Stretch.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		01B01B2D937D32BB6DBB2644 /* rfm_tiles_ref.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rfm_tiles_ref.c; sourceTree = "<group>"; };
-		02BCD93EFCBC2247C345FD5A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		05AF0FDDC7F1DABFB64A4C04 /* AudioIO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioIO.h; sourceTree = "<group>"; };
-		094D2EA0737C9B33E6026033 /* rfm_codec.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rfm_codec.c; sourceTree = "<group>"; };
-		192DA03136853319822784A6 /* screen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = screen.h; sourceTree = "<group>"; };
-		19A81CBDCDED07E98BB42025 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		1B23C6F9CC416AD26A2D40A3 /* panel.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = panel.c; sourceTree = "<group>"; };
-		1BA7580210EAA67C4F6329A4 /* FakeUnitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FakeUnitViewController.h; sourceTree = "<group>"; };
-		1BEBFA1048D7D30E0867A8CB /* Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
-		2406F0A89CB0AFDBB2DC148F /* Backend.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Backend.mm; sourceTree = "<group>"; };
-		248AB9104AB111B3A43E991C /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		258DB2B9FC5C15D14237B3DF /* SamplerApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SamplerApp.cpp; sourceTree = "<group>"; };
-		280263D0A4A6BB72C740F4C1 /* SamplerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SamplerView.h; sourceTree = "<group>"; };
-		2CBEEE489083D01E5A8DAD43 /* remote_proto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = remote_proto.h; sourceTree = "<group>"; };
-		2D145033D8DAB9AA21761E6D /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
-		2ECE123D4E5B2D28DC8F130C /* Paul.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Paul.cpp; sourceTree = "<group>"; };
-		321C4B393D9013947C245C28 /* rfm_screen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rfm_screen.c; sourceTree = "<group>"; };
-		355272B0892B8C6819A4E541 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		35D15A5DC0CE8DC9CE71563F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		3855D0AEE41D3BEA96923C2A /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		07CCA4592C6FE009AD1C4BCB /* SamplerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplerModel.swift; sourceTree = "<group>"; };
+		08CF3FB1E069E355E51BD49D /* SamplerApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SamplerApp.cpp; sourceTree = "<group>"; };
+		0C802F871EB64AE44E35C22E /* Reverb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reverb.h; sourceTree = "<group>"; };
+		0F88A4202E578D1736E4244E /* TapeDelay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TapeDelay.h; sourceTree = "<group>"; };
+		14042C1851FEC55E21B08ABC /* AVFAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFAudio.framework; path = System/Library/Frameworks/AVFAudio.framework; sourceTree = SDKROOT; };
+		145CE4C404D260C9FC552C46 /* Wav.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Wav.h; sourceTree = "<group>"; };
+		187A65BF3572DE34D44A2461 /* Paul.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Paul.h; sourceTree = "<group>"; };
+		1FB582E16BBFA2A117EA1333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		23B8138A7DB6EF8AEBE2E11F /* Paul.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Paul.cpp; sourceTree = "<group>"; };
+		30C65B8C4315C4896F1E4F0E /* AudioImport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioImport.h; sourceTree = "<group>"; };
+		395B1ECAE5F411994194F42E /* TapeInsert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TapeInsert.h; sourceTree = "<group>"; };
 		3C380247DAD6D8156078EB77 /* FM1Sampler.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = FM1Sampler.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D724DC8B1069C73A06924E6 /* AudioImport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioImport.h; sourceTree = "<group>"; };
-		43C7F736249C79CEF7076A89 /* TapeDelay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TapeDelay.h; sourceTree = "<group>"; };
-		4702B405562025F53DB582BB /* SamplerUI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SamplerUI.cpp; sourceTree = "<group>"; };
-		499FDC490731DCC311190458 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
-		4A4D7E66BB70B12206614F5F /* TapeInsert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TapeInsert.h; sourceTree = "<group>"; };
-		4D95FD68FD7373FD7083E502 /* SamplerView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SamplerView.mm; sourceTree = "<group>"; };
-		4FE7DF30C13745168C3AC01E /* session.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = session.h; sourceTree = "<group>"; };
-		530DA796D822E7749F7BC696 /* LICENSE */ = {isa = PBXFileReference; path = LICENSE; sourceTree = "<group>"; };
-		553EE9B261228F02C1A19295 /* screen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = screen.c; sourceTree = "<group>"; };
-		5645312CE17F7981A33B4669 /* Filter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
-		575B9F091E002FDE8DD60369 /* session.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = session.c; sourceTree = "<group>"; };
+		3E8E3B0D290C4BC7DCB81E14 /* AudioImport.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioImport.mm; sourceTree = "<group>"; };
+		46CDB7E333D3BAC545B0B746 /* Arp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Arp.h; sourceTree = "<group>"; };
+		50E52DD9307ECF4375DB706D /* Session.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		52418F27477D9A2906EE4D18 /* samples */ = {isa = PBXFileReference; lastKnownFileType = folder; name = samples; path = ../samples; sourceTree = SOURCE_ROOT; };
+		52815E83F182BDF7987EDA73 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5323E5393CFD28A4CE5F1694 /* EngineBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EngineBridge.h; sourceTree = "<group>"; };
+		58FFEFEC571B7E6EF85D0D28 /* SamplerUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SamplerUI.h; sourceTree = "<group>"; };
 		5AA36EA0A8F86B845D291E41 /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
-		5FC417331F356DFB8F0D77BB /* rfm_session.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rfm_session.c; sourceTree = "<group>"; };
-		5FF1276D9CD551F4B5F07F1A /* Sampler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sampler.cpp; sourceTree = "<group>"; };
-		61F07B3D13ECEBEF153B77DE /* Arp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Arp.h; sourceTree = "<group>"; };
-		6474FB66BA0D6C05F9367F65 /* kiss_fft.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = kiss_fft.c; path = ../engine/3rdparty/kissfft/kiss_fft.c; sourceTree = "<group>"; };
-		6A5841F66C22C83361C7686B /* Pitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pitch.h; sourceTree = "<group>"; };
-		713CFCE6D269F03F4DC2B07E /* MidiLink.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MidiLink.mm; sourceTree = "<group>"; };
-		730BE6E3EAF1AC051965EFDC /* tiles_ref.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tiles_ref.h; sourceTree = "<group>"; };
-		74ABAF62CE96F91C3BE42FD7 /* Stretch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Stretch.cpp; sourceTree = "<group>"; };
+		5C5B55E8B1B0AC86933F1B47 /* AudioIO.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioIO.mm; sourceTree = "<group>"; };
+		5D5DC5109DBAD9E0FBF804C9 /* AudioIO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioIO.h; sourceTree = "<group>"; };
+		6256E06C66FDAE6E250F4DA0 /* Sampler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sampler.h; sourceTree = "<group>"; };
+		65315B54EB3EBD51E1DF5A1D /* DrawOp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawOp.swift; sourceTree = "<group>"; };
+		6FE75201BC2300704B76B72E /* kiss_fft.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = kiss_fft.c; sourceTree = "<group>"; };
 		7740FE94C6164B7D1CBB6231 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7AAF0E6FFB2B6428FD8AA805 /* rfm_panel.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rfm_panel.c; sourceTree = "<group>"; };
+		78175F64EFE7C541CA9D6563 /* FM1Sampler-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FM1Sampler-Bridging-Header.h"; sourceTree = "<group>"; };
 		7F87430B55AECB70C64515CA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		812C921286D3BD66EE8156AE /* MidiLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MidiLink.h; sourceTree = "<group>"; };
 		83404696AB0C1E8CBC195732 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
-		8E772741EC31300A6A9F1712 /* Backend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Backend.h; sourceTree = "<group>"; };
-		9C0C08A720BB34D3149F694B /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
-		9D63513AB8F58D931628C850 /* FakeUnitViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FakeUnitViewController.mm; sourceTree = "<group>"; };
-		A644B0C8ED57D7F6EFD83650 /* rfm_fake.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rfm_fake.c; sourceTree = "<group>"; };
-		A9932C6D2DF4396BC88E0F47 /* fake.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fake.c; sourceTree = "<group>"; };
-		AAA0976120A515653EC1DE1F /* Paul.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Paul.h; sourceTree = "<group>"; };
-		AD16CEAF6816E82C0F6DB1A2 /* UiOp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UiOp.h; sourceTree = "<group>"; };
-		B0394FDC1CBC0B67FF0304B8 /* Adsr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Adsr.h; sourceTree = "<group>"; };
-		B03D636F6C70EE639F261D79 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
-		B157018CC9A46A6F0E8CF098 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		B302D2DB26BBFCB9CCBB1309 /* AudioImport.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioImport.mm; sourceTree = "<group>"; };
-		B48B07D6CC1E85C073133DE4 /* SamplerUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SamplerUI.h; sourceTree = "<group>"; };
-		B76A62B4BC49BD60E655D767 /* RemoteBridge.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = RemoteBridge.cpp; sourceTree = "<group>"; };
-		B925171D4D0F0FD3786C0E87 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		B98338C27C027E38D5E0698A /* codec.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = codec.c; sourceTree = "<group>"; };
-		BB126B0D84B12AF0D85D5417 /* Slicer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Slicer.h; sourceTree = "<group>"; };
-		C5205D762FD96F6DBDD90039 /* rfm1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rfm1.h; sourceTree = "<group>"; };
-		C66B6B4FA244D0E68A034A14 /* Wav.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Wav.cpp; sourceTree = "<group>"; };
-		CA1F5A09F31E01772D3ED9CE /* codec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = codec.h; sourceTree = "<group>"; };
-		CBFB3F9E5ABA6067112FAA9E /* tiles_ref.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = tiles_ref.c; sourceTree = "<group>"; };
-		CC439BA27E97219563F0F07A /* AudioIO.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioIO.mm; sourceTree = "<group>"; };
-		CE011C68F47A00F9EE484C86 /* Reverb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reverb.h; sourceTree = "<group>"; };
-		D14E54A66726C8378F242EC1 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		D2266527A30C1EF60191E647 /* samples */ = {isa = PBXFileReference; lastKnownFileType = folder; name = samples; path = ../samples; sourceTree = SOURCE_ROOT; };
-		DD96F6D450BB551442428FDB /* RemoteBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemoteBridge.h; sourceTree = "<group>"; };
-		E00B14C81F2E0B27C0B0480C /* Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Core.h; sourceTree = "<group>"; };
-		E08743E51071745F9A06AF42 /* Sampler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sampler.h; sourceTree = "<group>"; };
-		E563A15A07BA5560822503DC /* Core.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Core.mm; sourceTree = "<group>"; };
-		E63B4BB4DB0F5025B7D1623B /* Wav.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Wav.h; sourceTree = "<group>"; };
-		E8C94E3D8DDE29D6AFB9855D /* SamplerApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SamplerApp.h; sourceTree = "<group>"; };
-		E9079A5EC95501878417B204 /* Session.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
-		EAEEC505CBFE9F70DFDDE909 /* Diag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Diag.h; sourceTree = "<group>"; };
-		ED5E205B38C3E39AB358C633 /* kiss_fftr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = kiss_fftr.c; path = ../engine/3rdparty/kissfft/kiss_fftr.c; sourceTree = "<group>"; };
-		EDFD97BDBD07AAC5B3A378D7 /* Diag.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Diag.mm; sourceTree = "<group>"; };
+		899E7E93C29086C6BA7C4A50 /* UiOp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UiOp.h; sourceTree = "<group>"; };
+		9AD8D56F28B0CB34F436B55C /* Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Theme.h; sourceTree = "<group>"; };
+		A3426A0812CBF45C88F0EAE4 /* EngineBridge.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = EngineBridge.mm; sourceTree = "<group>"; };
+		A48BC26B5699D8F978601D6F /* Filter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Filter.h; sourceTree = "<group>"; };
+		AA61D430569D368E5B529199 /* Session.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Session.cpp; sourceTree = "<group>"; };
+		AC8515FD4202C5FC405E5796 /* kiss_fftr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = kiss_fftr.c; sourceTree = "<group>"; };
+		AFC33A2D0992A944350BA5E5 /* SamplerSurface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplerSurface.swift; sourceTree = "<group>"; };
+		B4A60232A3CA05855AFC2758 /* Adsr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Adsr.h; sourceTree = "<group>"; };
+		B4D97F858F2653A89B9CA426 /* Pitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pitch.h; sourceTree = "<group>"; };
+		B87B0092850177FE4B183DB5 /* FM1SamplerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FM1SamplerApp.swift; sourceTree = "<group>"; };
+		C89CD47B72DB6A8D71526B20 /* Wav.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Wav.cpp; sourceTree = "<group>"; };
+		CAB80C32264C5A02513D4DAB /* SamplerApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SamplerApp.h; sourceTree = "<group>"; };
+		CD469110143AB334F9C23F6F /* Stretch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stretch.h; sourceTree = "<group>"; };
+		CD98A356F8E8B9B82B5E4EFE /* Stretch.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Stretch.cpp; sourceTree = "<group>"; };
+		E301B017853B7BF6E4B5552E /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		E4B4E41DD7541B21EED181DD /* Slicer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Slicer.h; sourceTree = "<group>"; };
+		E8F0DA7D546D9DE443FCA79C /* SamplerUI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SamplerUI.cpp; sourceTree = "<group>"; };
 		F0CC4D25C4E97F1352DF235A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		F10FE2300F413FBE6385C2CD /* Stretch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stretch.h; sourceTree = "<group>"; };
-		F6861400FBCE9A14FCB9CB9F /* fake.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fake.h; sourceTree = "<group>"; };
-		F9A6A055451F1BB0DD2B6874 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		FA5B0D04DAD49AA0D1ED0347 /* Session.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Session.cpp; sourceTree = "<group>"; };
-		FCF114DE1FA17B345023815C /* panel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = panel.h; sourceTree = "<group>"; };
+		FB642FA35FC8061E100CE463 /* Sampler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Sampler.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,189 +89,78 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABDC5B8E4EA4253DF9E83199 /* AVFoundation.framework in Frameworks */,
 				4F48F667D558283AC2C4EE9D /* AudioToolbox.framework in Frameworks */,
+				46ACB040DD9E27B0FD3439E8 /* AVFAudio.framework in Frameworks */,
 				82266F1E10F16B71E2157210 /* CoreMIDI.framework in Frameworks */,
-				509C07A80508314503E9F861 /* CoreAudioKit.framework in Frameworks */,
-				A27A155BDCDC2EFAA00F32E3 /* CoreText.framework in Frameworks */,
 				6E2B9A328C49C8B7A40C96EA /* UniformTypeIdentifiers.framework in Frameworks */,
-				6C6A702BBCC2773ECC5DEAFB /* QuartzCore.framework in Frameworks */,
-				E071FCDCDF860BF41F2DE45D /* CoreGraphics.framework in Frameworks */,
-				1A6469A83CD202727C29F0C3 /* UIKit.framework in Frameworks */,
-				42FFA81908B3F9E3D39FC70E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		085F8053353298AECE19E56B /* remotefm1 */ = {
+		14D30B6EA43B59693FE342EC /* session */ = {
 			isa = PBXGroup;
 			children = (
-				530DA796D822E7749F7BC696 /* LICENSE */,
-				B925171D4D0F0FD3786C0E87 /* README.md */,
-				DB2E6197AC592C02B5DC6C55 /* firmware */,
-				E4641C677063EC03DDD7C470 /* include */,
-				4E749EA8C43F577091C54A7A /* proto */,
-				F99C6FE065E6D40FD43CB01D /* src */,
-			);
-			path = remotefm1;
-			sourceTree = "<group>";
-		};
-		19A38B67CBA448346392830F /* dsp */ = {
-			isa = PBXGroup;
-			children = (
-				B0394FDC1CBC0B67FF0304B8 /* Adsr.h */,
-				61F07B3D13ECEBEF153B77DE /* Arp.h */,
-				2D145033D8DAB9AA21761E6D /* Common.h */,
-				5645312CE17F7981A33B4669 /* Filter.h */,
-				2ECE123D4E5B2D28DC8F130C /* Paul.cpp */,
-				AAA0976120A515653EC1DE1F /* Paul.h */,
-				6A5841F66C22C83361C7686B /* Pitch.h */,
-				CE011C68F47A00F9EE484C86 /* Reverb.h */,
-				5FF1276D9CD551F4B5F07F1A /* Sampler.cpp */,
-				E08743E51071745F9A06AF42 /* Sampler.h */,
-				BB126B0D84B12AF0D85D5417 /* Slicer.h */,
-				74ABAF62CE96F91C3BE42FD7 /* Stretch.cpp */,
-				F10FE2300F413FBE6385C2CD /* Stretch.h */,
-				43C7F736249C79CEF7076A89 /* TapeDelay.h */,
-				4A4D7E66BB70B12206614F5F /* TapeInsert.h */,
-				C66B6B4FA244D0E68A034A14 /* Wav.cpp */,
-				E63B4BB4DB0F5025B7D1623B /* Wav.h */,
-			);
-			name = dsp;
-			path = ../engine/dsp;
-			sourceTree = "<group>";
-		};
-		260B74BE07E4A1B7644DB13B /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				355272B0892B8C6819A4E541 /* AppDelegate.h */,
-				B03D636F6C70EE639F261D79 /* AppDelegate.mm */,
-				3D724DC8B1069C73A06924E6 /* AudioImport.h */,
-				B302D2DB26BBFCB9CCBB1309 /* AudioImport.mm */,
-				05AF0FDDC7F1DABFB64A4C04 /* AudioIO.h */,
-				CC439BA27E97219563F0F07A /* AudioIO.mm */,
-				8E772741EC31300A6A9F1712 /* Backend.h */,
-				2406F0A89CB0AFDBB2DC148F /* Backend.mm */,
-				E00B14C81F2E0B27C0B0480C /* Core.h */,
-				E563A15A07BA5560822503DC /* Core.mm */,
-				EAEEC505CBFE9F70DFDDE909 /* Diag.h */,
-				EDFD97BDBD07AAC5B3A378D7 /* Diag.mm */,
-				1BA7580210EAA67C4F6329A4 /* FakeUnitViewController.h */,
-				9D63513AB8F58D931628C850 /* FakeUnitViewController.mm */,
-				499FDC490731DCC311190458 /* main.mm */,
-				812C921286D3BD66EE8156AE /* MidiLink.h */,
-				713CFCE6D269F03F4DC2B07E /* MidiLink.mm */,
-				B76A62B4BC49BD60E655D767 /* RemoteBridge.cpp */,
-				DD96F6D450BB551442428FDB /* RemoteBridge.h */,
-				280263D0A4A6BB72C740F4C1 /* SamplerView.h */,
-				4D95FD68FD7373FD7083E502 /* SamplerView.mm */,
-				D14E54A66726C8378F242EC1 /* ViewController.h */,
-				3855D0AEE41D3BEA96923C2A /* ViewController.mm */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		3C724D6841774803BE0AB22D /* src */ = {
-			isa = PBXGroup;
-			children = (
-				2CBEEE489083D01E5A8DAD43 /* remote_proto.h */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
-		447F3043B959AD34714350CF /* RemoteFM1 */ = {
-			isa = PBXGroup;
-			children = (
-				094D2EA0737C9B33E6026033 /* rfm_codec.c */,
-				A644B0C8ED57D7F6EFD83650 /* rfm_fake.c */,
-				7AAF0E6FFB2B6428FD8AA805 /* rfm_panel.c */,
-				321C4B393D9013947C245C28 /* rfm_screen.c */,
-				5FC417331F356DFB8F0D77BB /* rfm_session.c */,
-				01B01B2D937D32BB6DBB2644 /* rfm_tiles_ref.c */,
-			);
-			path = RemoteFM1;
-			sourceTree = "<group>";
-		};
-		47E51D2891856C0546392860 /* session */ = {
-			isa = PBXGroup;
-			children = (
-				FA5B0D04DAD49AA0D1ED0347 /* Session.cpp */,
-				E9079A5EC95501878417B204 /* Session.h */,
+				AA61D430569D368E5B529199 /* Session.cpp */,
+				50E52DD9307ECF4375DB706D /* Session.h */,
 			);
 			name = session;
 			path = ../engine/session;
 			sourceTree = "<group>";
 		};
-		48212A50AC06A94266A588D7 /* ThirdParty */ = {
+		4845DCD8D58F83E55A9A62FC /* dsp */ = {
 			isa = PBXGroup;
 			children = (
-				085F8053353298AECE19E56B /* remotefm1 */,
+				B4A60232A3CA05855AFC2758 /* Adsr.h */,
+				46CDB7E333D3BAC545B0B746 /* Arp.h */,
+				E301B017853B7BF6E4B5552E /* Common.h */,
+				A48BC26B5699D8F978601D6F /* Filter.h */,
+				23B8138A7DB6EF8AEBE2E11F /* Paul.cpp */,
+				187A65BF3572DE34D44A2461 /* Paul.h */,
+				B4D97F858F2653A89B9CA426 /* Pitch.h */,
+				0C802F871EB64AE44E35C22E /* Reverb.h */,
+				FB642FA35FC8061E100CE463 /* Sampler.cpp */,
+				6256E06C66FDAE6E250F4DA0 /* Sampler.h */,
+				E4B4E41DD7541B21EED181DD /* Slicer.h */,
+				CD98A356F8E8B9B82B5E4EFE /* Stretch.cpp */,
+				CD469110143AB334F9C23F6F /* Stretch.h */,
+				0F88A4202E578D1736E4244E /* TapeDelay.h */,
+				395B1ECAE5F411994194F42E /* TapeInsert.h */,
+				C89CD47B72DB6A8D71526B20 /* Wav.cpp */,
+				145CE4C404D260C9FC552C46 /* Wav.h */,
 			);
-			path = ThirdParty;
-			sourceTree = "<group>";
-		};
-		4A3FBA9704CC41BD3083D60B /* ui */ = {
-			isa = PBXGroup;
-			children = (
-				4702B405562025F53DB582BB /* SamplerUI.cpp */,
-				B48B07D6CC1E85C073133DE4 /* SamplerUI.h */,
-				1BEBFA1048D7D30E0867A8CB /* Theme.h */,
-				AD16CEAF6816E82C0F6DB1A2 /* UiOp.h */,
-			);
-			name = ui;
-			path = ../engine/ui;
+			name = dsp;
+			path = ../engine/dsp;
 			sourceTree = "<group>";
 		};
 		4DFBEBCC47E2339298CCF6B8 /* FM1Sampler */ = {
 			isa = PBXGroup;
 			children = (
 				7740FE94C6164B7D1CBB6231 /* Assets.xcassets */,
+				30C65B8C4315C4896F1E4F0E /* AudioImport.h */,
+				3E8E3B0D290C4BC7DCB81E14 /* AudioImport.mm */,
+				5D5DC5109DBAD9E0FBF804C9 /* AudioIO.h */,
+				5C5B55E8B1B0AC86933F1B47 /* AudioIO.mm */,
+				52815E83F182BDF7987EDA73 /* ContentView.swift */,
+				65315B54EB3EBD51E1DF5A1D /* DrawOp.swift */,
+				5323E5393CFD28A4CE5F1694 /* EngineBridge.h */,
+				A3426A0812CBF45C88F0EAE4 /* EngineBridge.mm */,
+				78175F64EFE7C541CA9D6563 /* FM1Sampler-Bridging-Header.h */,
+				B87B0092850177FE4B183DB5 /* FM1SamplerApp.swift */,
+				1FB582E16BBFA2A117EA1333 /* Info.plist */,
 				F0CC4D25C4E97F1352DF235A /* PrivacyInfo.xcprivacy */,
-				447F3043B959AD34714350CF /* RemoteFM1 */,
-				260B74BE07E4A1B7644DB13B /* Sources */,
+				07CCA4592C6FE009AD1C4BCB /* SamplerModel.swift */,
+				AFC33A2D0992A944350BA5E5 /* SamplerSurface.swift */,
 			);
 			path = FM1Sampler;
 			sourceTree = "<group>";
 		};
-		4E749EA8C43F577091C54A7A /* proto */ = {
+		4F0C5641463BFBC58E4EE2A3 /* app */ = {
 			isa = PBXGroup;
 			children = (
-				C5205D762FD96F6DBDD90039 /* rfm1.h */,
-			);
-			path = proto;
-			sourceTree = "<group>";
-		};
-		4FF4C3547EFF3AD4DB9EE723 /* engine */ = {
-			isa = PBXGroup;
-			children = (
-				7AEED903C645A59BB4FF51B7 /* app */,
-				19A38B67CBA448346392830F /* dsp */,
-				47E51D2891856C0546392860 /* session */,
-				4A3FBA9704CC41BD3083D60B /* ui */,
-			);
-			path = engine;
-			sourceTree = "<group>";
-		};
-		6E8B5658618D8F154E0743A1 /* rfm */ = {
-			isa = PBXGroup;
-			children = (
-				CA1F5A09F31E01772D3ED9CE /* codec.h */,
-				F6861400FBCE9A14FCB9CB9F /* fake.h */,
-				FCF114DE1FA17B345023815C /* panel.h */,
-				192DA03136853319822784A6 /* screen.h */,
-				4FE7DF30C13745168C3AC01E /* session.h */,
-				730BE6E3EAF1AC051965EFDC /* tiles_ref.h */,
-			);
-			path = rfm;
-			sourceTree = "<group>";
-		};
-		7AEED903C645A59BB4FF51B7 /* app */ = {
-			isa = PBXGroup;
-			children = (
-				258DB2B9FC5C15D14237B3DF /* SamplerApp.cpp */,
-				E8C94E3D8DDE29D6AFB9855D /* SamplerApp.h */,
+				08CF3FB1E069E355E51BD49D /* SamplerApp.cpp */,
+				CAB80C32264C5A02513D4DAB /* SamplerApp.h */,
 			);
 			name = app;
 			path = ../engine/app;
@@ -335,73 +170,45 @@
 			isa = PBXGroup;
 			children = (
 				7F87430B55AECB70C64515CA /* AudioToolbox.framework */,
-				F9A6A055451F1BB0DD2B6874 /* AVFoundation.framework */,
-				9C0C08A720BB34D3149F694B /* CoreAudioKit.framework */,
-				19A81CBDCDED07E98BB42025 /* CoreGraphics.framework */,
+				14042C1851FEC55E21B08ABC /* AVFAudio.framework */,
 				83404696AB0C1E8CBC195732 /* CoreMIDI.framework */,
-				248AB9104AB111B3A43E991C /* CoreText.framework */,
-				02BCD93EFCBC2247C345FD5A /* Foundation.framework */,
-				35D15A5DC0CE8DC9CE71563F /* QuartzCore.framework */,
-				B157018CC9A46A6F0E8CF098 /* UIKit.framework */,
 				5AA36EA0A8F86B845D291E41 /* UniformTypeIdentifiers.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		ABD9DC93F561265D3FE12F3A /* Engine */ = {
+		8E92B383E885B48E91C6DF0F /* kissfft */ = {
 			isa = PBXGroup;
 			children = (
-				7AEED903C645A59BB4FF51B7 /* app */,
-				19A38B67CBA448346392830F /* dsp */,
-				DDE11EDB243EF9F142DB2488 /* kissfft */,
-				47E51D2891856C0546392860 /* session */,
-				4A3FBA9704CC41BD3083D60B /* ui */,
-			);
-			name = Engine;
-			sourceTree = "<group>";
-		};
-		BFFB78D12263F2A820933D3A /* fm1-sampler */ = {
-			isa = PBXGroup;
-			children = (
-				D2266527A30C1EF60191E647 /* samples */,
-				4FF4C3547EFF3AD4DB9EE723 /* engine */,
-			);
-			name = "fm1-sampler";
-			path = ..;
-			sourceTree = "<group>";
-		};
-		DB2E6197AC592C02B5DC6C55 /* firmware */ = {
-			isa = PBXGroup;
-			children = (
-				3C724D6841774803BE0AB22D /* src */,
-			);
-			path = firmware;
-			sourceTree = "<group>";
-		};
-		DDE11EDB243EF9F142DB2488 /* kissfft */ = {
-			isa = PBXGroup;
-			children = (
-				6474FB66BA0D6C05F9367F65 /* kiss_fft.c */,
-				ED5E205B38C3E39AB358C633 /* kiss_fftr.c */,
+				6FE75201BC2300704B76B72E /* kiss_fft.c */,
+				AC8515FD4202C5FC405E5796 /* kiss_fftr.c */,
 			);
 			name = kissfft;
+			path = ../engine/3rdparty/kissfft;
 			sourceTree = "<group>";
 		};
-		E4641C677063EC03DDD7C470 /* include */ = {
+		DF614640A40F73F7A7FAB8FF /* ui */ = {
 			isa = PBXGroup;
 			children = (
-				6E8B5658618D8F154E0743A1 /* rfm */,
+				E8F0DA7D546D9DE443FCA79C /* SamplerUI.cpp */,
+				58FFEFEC571B7E6EF85D0D28 /* SamplerUI.h */,
+				9AD8D56F28B0CB34F436B55C /* Theme.h */,
+				899E7E93C29086C6BA7C4A50 /* UiOp.h */,
 			);
-			path = include;
+			name = ui;
+			path = ../engine/ui;
 			sourceTree = "<group>";
 		};
 		F4A82746DA41ED86BFE9E846 = {
 			isa = PBXGroup;
 			children = (
-				ABD9DC93F561265D3FE12F3A /* Engine */,
-				BFFB78D12263F2A820933D3A /* fm1-sampler */,
+				52418F27477D9A2906EE4D18 /* samples */,
+				4F0C5641463BFBC58E4EE2A3 /* app */,
+				4845DCD8D58F83E55A9A62FC /* dsp */,
 				4DFBEBCC47E2339298CCF6B8 /* FM1Sampler */,
-				48212A50AC06A94266A588D7 /* ThirdParty */,
+				8E92B383E885B48E91C6DF0F /* kissfft */,
+				14D30B6EA43B59693FE342EC /* session */,
+				DF614640A40F73F7A7FAB8FF /* ui */,
 				8375DBCCEB45A706A518528E /* Frameworks */,
 				F82C33D69DC141913A809111 /* Products */,
 			);
@@ -413,19 +220,6 @@
 				3C380247DAD6D8156078EB77 /* FM1Sampler.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		F99C6FE065E6D40FD43CB01D /* src */ = {
-			isa = PBXGroup;
-			children = (
-				B98338C27C027E38D5E0698A /* codec.c */,
-				A9932C6D2DF4396BC88E0F47 /* fake.c */,
-				1B23C6F9CC416AD26A2D40A3 /* panel.c */,
-				553EE9B261228F02C1A19295 /* screen.c */,
-				575B9F091E002FDE8DD60369 /* session.c */,
-				CBFB3F9E5ABA6067112FAA9E /* tiles_ref.c */,
-			);
-			path = src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -459,10 +253,6 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
-					8FC158489185905CC08191FE = {
-						DevelopmentTeam = E9C9AGS9K6;
-						ProvisioningStyle = Automatic;
-					};
 				};
 			};
 			buildConfigurationList = 750FD594A196AECDDEEDF523 /* Build configuration list for PBXProject "FM1Sampler" */;
@@ -491,7 +281,7 @@
 			files = (
 				1D95F2828530DDCE820CABAD /* Assets.xcassets in Resources */,
 				12341CE12F2C2A6F183B5FD7 /* PrivacyInfo.xcprivacy in Resources */,
-				0BC584442A0C9224CD675904 /* samples in Resources */,
+				2873B57CA8995D637F87F7EC /* samples in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,33 +292,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C62FE866E110EDC4891E363 /* AppDelegate.mm in Sources */,
-				76268207D1E9A65206DD137F /* AudioIO.mm in Sources */,
-				87E8308ED996410DA0630CB7 /* AudioImport.mm in Sources */,
-				2643AF7AC9CE71EBE36DA24D /* Backend.mm in Sources */,
-				D742A77D4DC660CA1E5B6958 /* Core.mm in Sources */,
-				E981E345AA11838619BEF6FA /* Diag.mm in Sources */,
-				23A72BDD91C253F32F006156 /* FakeUnitViewController.mm in Sources */,
-				80563C0F66C4C77D8E833C43 /* MidiLink.mm in Sources */,
-				C3C663341F6B0E41FC7C165D /* Paul.cpp in Sources */,
-				93776545D4E083FF968E491B /* RemoteBridge.cpp in Sources */,
-				F90CD6EAF5373C02F281151C /* Sampler.cpp in Sources */,
-				A091C4D34AA816E5143E1A66 /* SamplerApp.cpp in Sources */,
-				3726754F6845CF4F5D0491F5 /* SamplerUI.cpp in Sources */,
-				78779594D2EFA7C2BCEA8F79 /* SamplerView.mm in Sources */,
-				AC264D27033D2BED424DF091 /* Session.cpp in Sources */,
-				75C2687EB194A40FDDB40BB2 /* Stretch.cpp in Sources */,
-				B3C79ED62C825A6B909FB5B0 /* ViewController.mm in Sources */,
-				CBB58329A4720CDF28952C99 /* Wav.cpp in Sources */,
-				6459967F540D7C4E49228709 /* kiss_fft.c in Sources */,
-				D22444ADDE73D9F0D0D7D950 /* kiss_fftr.c in Sources */,
-				EDA107825606D8168CCAD77C /* main.mm in Sources */,
-				CCFC356A3A55DB14320A9DF8 /* rfm_codec.c in Sources */,
-				E99BEC0921977648A2BE6D9D /* rfm_fake.c in Sources */,
-				1B42F3D20499A407E72431AE /* rfm_panel.c in Sources */,
-				AFA213E3836EFCC5CDBC3D66 /* rfm_screen.c in Sources */,
-				9CAC50572FE44499242DDC2A /* rfm_session.c in Sources */,
-				C19B0A01C21D2E89BF67DF1E /* rfm_tiles_ref.c in Sources */,
+				40F312A925C96B5CEAB67C0E /* AudioIO.mm in Sources */,
+				2807BB9309FDE9A93FE09DC9 /* AudioImport.mm in Sources */,
+				971BF729DE24A7BF6E451A40 /* ContentView.swift in Sources */,
+				7578AA9BBE7D3FC70859164E /* DrawOp.swift in Sources */,
+				51C8C60228D3F164CAEFC0E9 /* EngineBridge.mm in Sources */,
+				89081E9058E516630FFD8F0B /* FM1SamplerApp.swift in Sources */,
+				811C4B5F44E712B0573616D1 /* Paul.cpp in Sources */,
+				E8531FFB2EED70A0E4D66755 /* Sampler.cpp in Sources */,
+				2D9EDD726A2B264038513F02 /* SamplerApp.cpp in Sources */,
+				6BE52DE66E9F8C0B2DA95C5E /* SamplerModel.swift in Sources */,
+				2E494810BBAF9398809B7770 /* SamplerSurface.swift in Sources */,
+				F37B34CF4C74BDBAC260DE24 /* SamplerUI.cpp in Sources */,
+				EB94847489E4C49550A6332D /* Session.cpp in Sources */,
+				FCA676546264B0379A2A9420 /* Stretch.cpp in Sources */,
+				853F317D56C78EB2AC5F0BB3 /* Wav.cpp in Sources */,
+				DC8CC1EABEDD12D9A47F6A9D /* kiss_fft.c in Sources */,
+				076E8DA37AE6B5F765063348 /* kiss_fftr.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,16 +320,38 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"SAMPLERATE=44100",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../engine/dsp",
+					"$(SRCROOT)/../engine/session",
+					"$(SRCROOT)/../engine/app",
+					"$(SRCROOT)/../engine/ui",
+					"$(SRCROOT)/../engine/3rdparty/kissfft",
+				);
 				INFOPLIST_FILE = FM1Sampler/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "用于从手机麦克风采样并录制循环。";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ca.dallasgroot.fm1sampler;
-				PRODUCT_NAME = FM1Sampler;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(inherited)",
+					"-O2",
+					"-w",
+				);
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_INCLUDE_PATHS = (
+					"$(SRCROOT)/../engine/dsp",
+					"$(SRCROOT)/../engine/session",
+					"$(SRCROOT)/../engine/app",
+					"$(SRCROOT)/../engine/ui",
+					"$(SRCROOT)/../engine/3rdparty/kissfft",
+				);
+				SWIFT_OBJC_BRIDGING_HEADER = "FM1Sampler/FM1Sampler-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -558,6 +360,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
@@ -587,11 +390,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = E9C9AGS9K6;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -600,7 +402,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FM1_TEST_TOOLS=1",
+					"DEBUG=1",
 				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -608,27 +410,22 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../engine/dsp",
-					"$(SRCROOT)/../engine/session",
-					"$(SRCROOT)/../engine/app",
-					"$(SRCROOT)/../engine/ui",
-					"$(SRCROOT)/../engine/3rdparty/kissfft",
-					"$(SRCROOT)/../engine/tools",
-					"$(SRCROOT)/ThirdParty/remotefm1/include",
-					"$(SRCROOT)/ThirdParty/remotefm1/proto",
-					"$(SRCROOT)/ThirdParty/remotefm1/firmware/src",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 0.37;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FM1Sampler/Info.plist;
+				INFOPLIST_KEY_CFBundleExecutable = "$(EXECUTABLE_NAME)";
+				INFOPLIST_KEY_CFBundlePackageType = APPL;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fm1sampler.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -636,6 +433,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
@@ -665,45 +463,35 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = E9C9AGS9K6;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"SAMPLERATE=44100",
-				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/../engine/dsp",
-					"$(SRCROOT)/../engine/session",
-					"$(SRCROOT)/../engine/app",
-					"$(SRCROOT)/../engine/ui",
-					"$(SRCROOT)/../engine/3rdparty/kissfft",
-					"$(SRCROOT)/../engine/tools",
-					"$(SRCROOT)/ThirdParty/remotefm1/include",
-					"$(SRCROOT)/ThirdParty/remotefm1/proto",
-					"$(SRCROOT)/ThirdParty/remotefm1/firmware/src",
-				);
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 0.37;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FM1Sampler/Info.plist;
+				INFOPLIST_KEY_CFBundleExecutable = "$(EXECUTABLE_NAME)";
+				INFOPLIST_KEY_CFBundlePackageType = APPL;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fm1sampler.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -712,16 +500,38 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"SAMPLERATE=44100",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../engine/dsp",
+					"$(SRCROOT)/../engine/session",
+					"$(SRCROOT)/../engine/app",
+					"$(SRCROOT)/../engine/ui",
+					"$(SRCROOT)/../engine/3rdparty/kissfft",
+				);
 				INFOPLIST_FILE = FM1Sampler/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "用于从手机麦克风采样并录制循环。";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ca.dallasgroot.fm1sampler;
-				PRODUCT_NAME = FM1Sampler;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(inherited)",
+					"-O2",
+					"-w",
+				);
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_INCLUDE_PATHS = (
+					"$(SRCROOT)/../engine/dsp",
+					"$(SRCROOT)/../engine/session",
+					"$(SRCROOT)/../engine/app",
+					"$(SRCROOT)/../engine/ui",
+					"$(SRCROOT)/../engine/3rdparty/kissfft",
+				);
+				SWIFT_OBJC_BRIDGING_HEADER = "FM1Sampler/FM1Sampler-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

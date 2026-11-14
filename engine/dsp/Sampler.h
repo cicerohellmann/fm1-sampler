@@ -49,6 +49,11 @@ public:
     void noteOn(int note, int vel);
     void noteOff(int note);
     void allOff();
+    void setTransportPlayback(bool play);
+    void clearTransportPlayback();
+    bool transportPlaybackActive() const;
+    float transportPlaybackPosition() const;
+    void seekTransportPlayback(float position);
     void render(float* out /*stereo, added*/, int n);
     int voicePositions(float* out, int maxN, float* level = nullptr) const;   // read positions 0..1 of the original sample
     bool hasVoices() const;
@@ -73,5 +78,7 @@ private:
     int mode_ = MELODIC; std::vector<int> slices_; std::string label_; std::vector<float> peaks_;
     Voice voices_[kVoices]; std::vector<std::unique_ptr<PaulStream>> paul_; bool paulBusy_[kVoices] = {};
     std::vector<Onset> onsets_; float sliceThr_ = 0.22f, kitSemis_ = 0.f, grainLen_ = 0.12f, grainScatter_ = 1.f, paulStretch_ = 8.f, paulWidth_ = 1.f; int grainN_ = 7; double sliceEnd_ = 0;
+    uint32_t transportVoice_ = 0;
+    bool transportPaused_ = false;
     uint32_t bornCounter_ = 0, rng_ = 7;
 };
